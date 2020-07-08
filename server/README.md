@@ -1,6 +1,6 @@
 # Server side
 
-## Code formatting
+## Code Formatting
 
 為了之後的人好維護，使用了以下的工具做 Code formatting，請後續維護者記得要繼續使用這些工具。
 
@@ -13,16 +13,30 @@
 - `setup.cfg`
 - `.editorconfig`
 
+## Code Testing
+
+```sh
+python -m unittest discover
+```
+
 ## Directory Structure
 
     .
+    ├── tests/               - testcases
     ├── requirements.txt     - 用到的python modules
     ├── setup.cfg            - pycodestyle 的設定檔
     └── .editorconfig        - editorconfig 的設定檔
 
 ## Usage
 
+1. Prerequisites
+
 ```sh
+pip install -r requirements.txt
+```
+
+```sh
+
 ```
 
 ## API
