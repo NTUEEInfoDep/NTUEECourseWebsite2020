@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 
 const PrivateRoute = ({ children }) => {
     // Check Login
-    const isLogin = useSelector(state => state.sessionReducer.isLogin);
+    const isLogin = useSelector(state => state.session.isLogin);
     return (
         <Route
             render={() => isLogin ? children : <Redirect to={{ pathname: '/login' }} />}

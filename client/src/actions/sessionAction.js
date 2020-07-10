@@ -9,7 +9,6 @@ export const login = ({
 }) => {
     return (dispatch) => { // return a function since this is async function
         // fetch api to check login
-        console.log(`id:${id}, password: ${password}`);
         setTimeout(() => {
             dispatch({
                 type: LOGIN,
@@ -25,7 +24,6 @@ export const login = ({
 export const logout = (sessionID) => {
     return (dispatch) => {
         // fetch api to logout
-        console.log(`logout sessionID: ${sessionID}`);
         setTimeout(() => {
             dispatch({
                 type: LOGOUT,

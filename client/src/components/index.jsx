@@ -4,9 +4,15 @@ import {
     BrowserRouter,
 } from "react-router-dom";
 import { Provider } from 'react-redux';
-import store from '../store';
 
+import configureStore from '../store';
 import Routes from '../routes/routes.jsx';
+
+const preloadedState = window.PRELOADED_STATE;
+
+delete window.PRELOADED_STATE;
+
+const store = configureStore(preloadedState);
 
 const App = () => {
     return (
@@ -18,4 +24,4 @@ const App = () => {
     )
 }
 
-ReactDOM.render(< App />, document.getElementById('app'));
+ReactDOM.hydrate(< App />, document.getElementById('app'));

@@ -4,12 +4,7 @@ import {
     LOGOUT
 } from '../constants/actionTypes';
 
-const initialState = {
-    isLogin: false,
-    sessionID: ''
-};
-
-export default (state = initialState, action) => {
+export default (state = {}, action) => {
     switch (action.type) {
         case LOGIN: {
             return {
