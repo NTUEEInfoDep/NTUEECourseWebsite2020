@@ -8,7 +8,7 @@ const webpack = require('webpack');
 
 module.exports = {
     entry: {
-        index: './src/components/index.jsx',
+        index: './client/src/components/index.jsx',
     },
     output: {
         filename: '[name].js',
@@ -55,7 +55,7 @@ module.exports = {
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            template: 'src/html/index.html',
+            template: 'client/html/index.html',
         }),
         new webpack.HotModuleReplacementPlugin(),
     ],

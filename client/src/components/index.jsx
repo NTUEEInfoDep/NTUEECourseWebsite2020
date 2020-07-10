@@ -1,13 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {
+    BrowserRouter,
+} from "react-router-dom";
 
-import SignIn from './signIn.jsx';
+import Routes from '../routes/routes.jsx';
 
-
-const App = () => (
-    <div>
-        <SignIn />
-    </div>
-);
+const App = () => {
+    return (
+        <BrowserRouter>
+            <Routes />
+        </BrowserRouter>
+    )
+}
 
 ReactDOM.render(< App />, document.getElementById('app'));
