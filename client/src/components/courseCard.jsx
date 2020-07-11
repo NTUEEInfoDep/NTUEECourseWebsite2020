@@ -13,10 +13,12 @@ const useStyles = makeStyles((theme) => ({
     root: {
         minWidth: 275,
         display: 'flex',
-        marginTop: theme.spacing(1)
+        marginTop: theme.spacing(1),
+        backgroundColor: '#303030',
     },
     chip: {
-        marginRight: theme.spacing(0.5)
+        marginRight: theme.spacing(0.5),
+        backgroundColor: '#505050'
     }
 
 }));
@@ -31,7 +33,7 @@ const CourseCard = (props) => {
     }
     const classes = useStyles();
     return (
-        <Card className={classes.root} color="secondary" variant="outlined">
+        <Card className={classes.root} color="secondary">
             <CardActionArea>
                 <CardContent>
                     <Typography variant="h5" color="textPrimary" gutterBottom>

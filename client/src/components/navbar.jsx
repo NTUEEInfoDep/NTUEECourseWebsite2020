@@ -17,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
     menuButton: {
         marginRight: theme.spacing(2),
     },
+    navBar: {
+        backgroundColor: '#202020'
+    },
     title: {
         flexGrow: 1,
     },
@@ -26,7 +29,7 @@ const NavBar = () => {
     const classes = useStyles();
     return (
         <div className={classes.root}>
-            <AppBar position="static">
+            <AppBar className={classes.navBar} position="static">
                 <Toolbar>
                     <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                         <MenuIcon />
