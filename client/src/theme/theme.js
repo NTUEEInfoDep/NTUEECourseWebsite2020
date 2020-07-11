@@ -1,19 +1,22 @@
-// export default {
-//     paper: {
-//         marginTop: theme.spacing(8),
-//         display: 'flex',
-//         flexDirection: 'column',
-//         alignItems: 'center',
-//     },
-//     avatar: {
-//         margin: theme.spacing(1),
-//         backgroundColor: theme.palette.secondary.main,
-//     },
-//     form: {
-//         width: '100%', // Fix IE 11 issue.
-//         marginTop: theme.spacing(1),
-//     },
-//     submit: {
-//         margin: theme.spacing(3, 0, 2),
-//     },
-// };
+import {
+    createMuiTheme
+} from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            light: '#534bae',
+            main: '#1a237e',
+            dark: '#000051',
+            contrastText: '#fff',
+        },
+        secondary: {
+            light: '#63a4ff',
+            main: '#1976d2',
+            dark: '#004ba0',
+            contrastText: '#fff',
+        },
+    },
+});
+
+export default theme

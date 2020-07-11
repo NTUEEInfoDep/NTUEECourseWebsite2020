@@ -1,14 +1,14 @@
 // Reducer that control student course selection
 import {
-    GET_ALL_COURSE
+    SAVE_SELECTION
 } from '../constants/actionTypes';
 
-export default (state = [], action) => {
+export default (state = {}, action) => {
     switch (action.type) {
-        case GET_ALL_COURSE: {
-            return [
+        case SAVE_SELECTION: {
+            return {
                 ...state
-            ]
+            }
         }
         default:
             return state;

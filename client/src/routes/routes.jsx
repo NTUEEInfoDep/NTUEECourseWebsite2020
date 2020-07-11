@@ -3,6 +3,7 @@ import {
     Switch,
     Redirect
 } from "react-router-dom";
+import { ThemeProvider } from '@material-ui/core/styles';
 
 import SignIn from '../components/signIn.jsx';
 import Course from '../components/course.jsx';
@@ -12,8 +13,10 @@ import NavBar from '../components/navbar.jsx';
 import PublicRoute from './publicroute.jsx';
 import PrivateRoute from './privateroute.jsx';
 
+import theme from '../theme/theme';
+
 const Routes = () => (
-    <div>
+    <ThemeProvider theme={theme}>
         <NavBar />
         <Switch>
             <PublicRoute path='/login'>
@@ -27,7 +30,7 @@ const Routes = () => (
             </PrivateRoute>
             <Redirect to='/login' />
         </Switch>
-    </div>
+    </ThemeProvider>
 );
 
 export default Routes;

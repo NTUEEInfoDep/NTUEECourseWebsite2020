@@ -24,4 +24,4 @@ const App = () => {
     )
 }
 
-ReactDOM.hydrate(< App />, document.getElementById('app'));
+ReactDOM.render(< App />, document.getElementById('app'));

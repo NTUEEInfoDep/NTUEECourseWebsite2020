@@ -1,15 +1,14 @@
 import {
-    SAVE_SELECTION
+    GET_ALL_COURSE
 } from '../constants/actionTypes';
 
-export default () => {
+export const getAllCourse = () => {
     return (dispatch) => {
         // fetch api to save selection
-        dispatch({
-            type: SAVE_SELECTION,
-            payload: {
-
-            }
-        })
-    }
-}
+        setTimeout(() => {
+            dispatch({
+                type: GET_ALL_COURSE
+            })
+        }, 500);
+    };
+};
