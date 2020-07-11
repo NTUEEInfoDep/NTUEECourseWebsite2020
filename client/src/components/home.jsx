@@ -42,7 +42,7 @@ const Home = () => {
         <Container component="div" maxWidth="lg">
             <CssBaseline />
             <div className={classes.paper}>
-                <ButtonGroup color="primary" size="large" aria-label="outlined primary button group">
+                <ButtonGroup color="secondary" size="large" aria-label="outlined primary button group">
                     {grades.map(grade => (
                         <Button key={grade.key} onClick={() => handleSelectGrade(grade.key)}>{grade.val}</Button>)
                     )}

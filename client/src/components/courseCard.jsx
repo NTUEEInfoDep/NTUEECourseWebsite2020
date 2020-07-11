@@ -40,12 +40,12 @@ const CourseCard = (props) => {
                     <Chip
                         className={classes.chip}
                         label="必修"
-                        icon={<FiberManualRecordIcon fontSize='small' />}
+                        icon={<FiberManualRecordIcon style={{ color: '#ff8775' }} fontSize='small' />}
                     />
                     <Chip
                         className={classes.chip}
                         label={subTitles[course.grade]}
-                        icon={<FiberManualRecordIcon fontSize='small' />}
+                        icon={<FiberManualRecordIcon style={{ color: '#ffb875' }} fontSize='small' />}
                     />
                 </CardContent>
             </CardActionArea>

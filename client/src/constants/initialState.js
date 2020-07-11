@@ -1,6 +1,6 @@
 const initialState = {
     session: {
-        isLogin: false,
+        isLogin: true,
         sessionID: '',
         studentID: ''
     },
