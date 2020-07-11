@@ -122,3 +122,6 @@ build/
 # DS_Store
 .DS_Store
 */.DS_Store
+
+# vscode settings
+.vscode
