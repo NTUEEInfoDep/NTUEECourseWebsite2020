@@ -14,24 +14,21 @@ export const login = ({
                 type: LOGIN,
                 payload: {
                     isLogin: true,
-                    sessionID: 'abcdefg'
+                    sessionID: 'abcdefg',
+                    studentID: 'b07901016'
                 }
             })
         }, 1000);
     }
 };
 
-export const logout = (sessionID) => {
+export const logout = () => {
     return (dispatch) => {
         // fetch api to logout
         setTimeout(() => {
             dispatch({
-                type: LOGOUT,
-                payload: {
-                    isLogin: false,
-                    sessionID: ''
-                }
-            })
+                type: LOGOUT
+            });
         }, 1000);
     }
 }

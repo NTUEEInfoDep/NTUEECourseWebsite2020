@@ -56,7 +56,7 @@ const CourseCard = (props) => {
 }
 
 CourseCard.propTypes = {
-    course: PropTypes.objectOf(PropTypes.object).isRequired
+    course: PropTypes.object.isRequired
 }
 
 export default CourseCard

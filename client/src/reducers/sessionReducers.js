@@ -10,14 +10,16 @@ export default (state = {}, action) => {
             return {
                 ...state,
                 isLogin: action.payload.isLogin,
-                sessionID: action.payload.sessionID
+                sessionID: action.payload.sessionID,
+                studentID: action.payload.studentID,
             };
         }
         case LOGOUT: {
             return {
                 ...state,
-                isLogin: action.payload.isLogin,
-                sessionID: action.payload.sessionID
+                isLogin: false,
+                sessionID: '',
+                studentID: ''
             }
         }
         default:

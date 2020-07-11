@@ -9,6 +9,9 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { logout } from '../actions/sessionAction';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,6 +30,14 @@ const useStyles = makeStyles((theme) => ({
 
 const NavBar = () => {
     const classes = useStyles();
+    const isLogin = useSelector(state => state.session.isLogin);
+    const studentID = useSelector(state => state.session.studentID);
+    const dispatch = useDispatch();
+
+    const handleLogout = (e) => {
+        e.preventDefault();
+        dispatch(logout());
+    }
     return (
         <div className={classes.root}>
             <AppBar className={classes.navBar} position="static">
@@ -37,13 +48,21 @@ const NavBar = () => {
                     <Typography variant="h6" className={classes.title}>
                         NTUEE Course System
                     </Typography>
-                    {/* <Typography variant="h6" className={classes.title}>
-                        <Link to='/course/123'>course</Link>
-                    </Typography> */}
-                    <Button color="inherit" component={Link}>login</Button>
+                    {
+                        isLogin === true ?
+                            (
+                                <div>
+                                    <Button color="inherit">{studentID}</Button>
+                                    <Button color="inherit" onClick={handleLogout}>logout</Button>
+                                </div>
+                            ) :
+                            (
+                                null
+                            )
+                    }
                 </Toolbar>
             </AppBar>
-        </div>
+        </div >
     )
 
 }
