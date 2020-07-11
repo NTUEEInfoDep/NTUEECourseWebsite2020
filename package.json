@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "format": "prettier --write .",
     "build-client": "webpack --config webpack.client.js --mode production",
     "build-server": "webpack --config webpack.server.js --mode production",
     "build": "npm run build-client && npm run build-server",
