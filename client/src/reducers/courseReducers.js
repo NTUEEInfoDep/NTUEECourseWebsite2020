@@ -4,7 +4,7 @@ import { GET_ALL_COURSE } from "../constants/actionTypes";
 export default (state = [], action) => {
   switch (action.type) {
     case GET_ALL_COURSE: {
-      return [...state];
+      return [...action.payload];
     }
     default:
       return state;

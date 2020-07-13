@@ -2,13 +2,13 @@ import React from "react";
 import { Switch, Redirect } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core/styles";
 
-import SignIn from "../components/signIn.jsx";
-import Course from "../components/course.jsx";
-import Home from "../components/home.jsx";
-import NavBar from "../components/navbar.jsx";
+import SignIn from "../components/signIn";
+import CourseSelection from "../components/courseSelection";
+import Home from "../components/home";
+import NavBar from "../components/navbar";
 
-import PublicRoute from "./publicroute.jsx";
-import PrivateRoute from "./privateroute.jsx";
+import PublicRoute from "./publicroute";
+import PrivateRoute from "./privateroute";
 
 import theme from "../theme/theme";
 
@@ -23,7 +23,7 @@ const Routes = () => (
         <Home />
       </PrivateRoute>
       <PrivateRoute path="/course/:id">
-        <Course />
+        <CourseSelection />
       </PrivateRoute>
       <Redirect to="/login" />
     </Switch>
