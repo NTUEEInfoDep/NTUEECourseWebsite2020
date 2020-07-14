@@ -21,4 +21,13 @@ module.exports = {
     ],
     "react/jsx-props-no-spreading": "off",
   },
+  overrides: [
+    {
+      files: ["server/**"],
+      rules: {
+        "no-console": "off",
+        "no-unused-vars": "off",
+      },
+    },
+  ],
 };
