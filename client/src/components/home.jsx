@@ -1,16 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector, useDispatch } from "react-redux";
-
 import { getAllCourse } from "../actions/courseAction";
 import { selectGrade } from "../actions/uiActions";
 
 import CourseCard from "./courseCard";
-import Loading from "./loading";
 
 const useStyles = makeStyles((theme) => ({
   paper: {

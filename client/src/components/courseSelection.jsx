@@ -15,6 +15,7 @@ import CourseOption from "./courseOption";
 import {
   getCourseSelection,
   updateCourseSelection,
+  saveSelection,
 } from "../actions/courseAction";
 import Loading from "./loading";
 
@@ -43,7 +44,6 @@ const CourseSelection = () => {
     0: "實驗",
   };
   useEffect(() => {
-    console.log(courseID);
     dispatch(getCourseSelection(courseID));
   }, [dispatch]);
   const { name, grade, selected, unselected } = useSelector(
@@ -63,6 +63,7 @@ const CourseSelection = () => {
     const [remove] = newSelection[source.droppableId].splice(source.index, 1);
     newSelection[destination.droppableId].splice(destination.index, 0, remove);
     dispatch(updateCourseSelection(newSelection)); // redux action to update state
+    dispatch(saveSelection(courseID, newSelection.selected));
   };
   return (
     <Container component="div" maxWidth="lg">

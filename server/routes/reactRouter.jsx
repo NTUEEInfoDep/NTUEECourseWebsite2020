@@ -38,7 +38,7 @@ const renderer = (req) => {
             "\\u003c"
           )}
         </script>
-        <script src='./bundle.js'></script>
+        <script src='/bundle.js'></script>
     </body>
 
     </html>`;

@@ -21,10 +21,12 @@ export const getAllCourse = () => {
         });
       } else {
         // redirect to login page
+        window.location = "/";
       }
       dispatch({ type: LOADING_END });
     } catch (e) {
       // redirect to error page
+      window.location = "/";
     }
   };
 };
@@ -36,22 +38,24 @@ export const getCourseSelection = (id) => {
     try {
       const res = await fetch(`/api/selections/${id}`, { method: "GET" });
       if (res.ok) {
-        const json = await res.json();
+        const { name, type, selected, unselected } = await res.json();
         dispatch({
           type: GET_COURSE_SELECTION,
           payload: {
-            name: json.name,
-            grade: json.type,
-            selected: json.selected.map((el) => el.name),
-            unselected: json.unselected.map((el) => el.name),
+            name,
+            grade: type,
+            selected,
+            unselected,
           },
         });
       } else {
         // redirect to login
+        window.location = "/";
       }
       dispatch({ type: LOADING_END });
     } catch (e) {
       // redirect to error page
+      window.location = "/";
     }
   };
 };
@@ -60,3 +64,26 @@ export const updateCourseSelection = (selection) => ({
   type: UPDATE_SELECTION,
   payload: selection,
 });
+
+export const saveSelection = (courseID, selected) => {
+  return async () => {
+    try {
+      const res = await fetch(`/api/selections/${courseID}`, {
+        method: "PUT",
+        body: JSON.stringify(selected),
+        headers: {
+          "Content-type": "application/json",
+        },
+      });
+      if (res.ok) {
+        // saved
+      } else {
+        // redirect to error page
+        window.location = "/";
+      }
+    } catch (e) {
+      // redirect to error page
+      window.location = "/";
+    }
+  };
+};

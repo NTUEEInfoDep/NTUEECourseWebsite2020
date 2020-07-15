@@ -23,11 +23,13 @@ export const getInitialState = () => {
       } else {
         // type login fail
         // redirect to login
+        // window.location = "/login";
       }
       dispatch({ type: INITIALIZED });
       dispatch({ type: LOADING_END });
     } catch (e) {
       // redirect to error page
+      window.location = "/";
     }
   };
 };
@@ -53,11 +55,13 @@ export const login = ({ id, password }) => {
             studentID: json.userID,
           },
         });
-      } else if (res.status === 403) {
+      } else {
         // dispatch sign in fail
+        window.location = "/";
       }
     } catch (e) {
       // redirect error page
+      window.location = "/";
     }
   };
 };
@@ -72,6 +76,7 @@ export const logout = () => {
       dispatch({ type: LOGOUT });
     } catch (e) {
       // redirect error page
+      window.location = "/";
     }
   };
 };

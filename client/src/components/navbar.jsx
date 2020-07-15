@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import { useSelector, useDispatch } from "react-redux";
+import { Link as RouterLink } from "react-router-dom";
 
 import { logout } from "../actions/sessionAction";
 
@@ -44,6 +45,8 @@ const NavBar = () => {
             className={classes.menuButton}
             color="inherit"
             aria-label="menu"
+            component={RouterLink}
+            to="/home"
           >
             <MenuIcon />
           </IconButton>
