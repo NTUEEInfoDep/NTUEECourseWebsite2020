@@ -1,10 +1,10 @@
 // Reducer that control student course selection
 import { GET_ALL_COURSE } from "../constants/actionTypes";
 
-export default (state = [], action) => {
+export default (state = {}, action) => {
   switch (action.type) {
     case GET_ALL_COURSE: {
-      return [...action.payload];
+      return { ...action.payload };
     }
     default:
       return state;

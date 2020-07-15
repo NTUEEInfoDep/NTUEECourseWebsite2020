@@ -2,67 +2,73 @@ import {
   GET_ALL_COURSE,
   GET_COURSE_SELECTION,
   UPDATE_SELECTION,
+  LOADING_START,
+  LOADING_END,
 } from "../constants/actionTypes";
 
 export const getAllCourse = () => {
-  return (dispatch) => {
+  return async (dispatch) => {
     // fetch api to get all course
-    setTimeout(() => {
-      dispatch({
-        type: GET_ALL_COURSE,
-        // payload for example
-        payload: [
+    dispatch({ type: LOADING_START });
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    dispatch({
+      type: GET_ALL_COURSE,
+      // payload for example
+      payload: {
+        1: [
           {
-            name: "電子學",
-            courseID: "86103",
-            grade: 2,
-          },
-          {
-            name: "演算法",
-            courseID: "86104",
-            grade: 3,
-          },
-          {
-            name: "電子學實驗",
-            courseID: "86106",
-            grade: 2,
-          },
-          {
-            name: "幾桶",
-            courseID: "86100",
-            grade: 2,
-          },
-          {
-            name: "光電實驗",
-            courseID: "8610324",
-            grade: 4,
-          },
-          {
-            name: "電路學實驗",
-            courseID: "862",
-            grade: 1,
+            name: "電路學",
+            courseID: "4567",
           },
         ],
-      });
-    }, 500);
+        2: [
+          {
+            name: "電子學",
+            courseID: "12345",
+          },
+          {
+            name: "電詞學",
+            courseID: "8787878",
+          },
+        ],
+        3: [
+          {
+            name: "演算法",
+            courseID: "7122",
+          },
+        ],
+        4: [
+          {
+            name: "電子學實驗",
+            courseID: "12345",
+          },
+          {
+            name: "十選二實驗",
+            courseID: "03734301",
+          },
+        ],
+      },
+    });
+    dispatch({ type: LOADING_END });
   };
 };
 
 export const getCourseSelection = () => {
-  return (dispatch) => {
+  return async (dispatch) => {
     // fetch api to get a user's course selection
-    setTimeout(() => {
-      dispatch({
-        type: GET_COURSE_SELECTION,
-        // payload for example
-        payload: {
-          name: "電子學",
-          grade: 2,
-          selected: ["鍾爸", "呂帥", "紅雲", "宗南", "李鴻毅", "冠中"],
-          unselected: ["子程", "好棒", "跟鬼一樣", "好屌"],
-        },
-      });
-    }, 500);
+    dispatch({ type: LOADING_START });
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    dispatch({
+      type: GET_COURSE_SELECTION,
+      // payload for example
+      payload: {
+        name: "電子學",
+        grade: 2,
+        selected: ["嵌入是", "生醫"],
+        unselected: ["電力", "電子", "微波"],
+      },
+    });
+    dispatch({ type: LOADING_END });
   };
 };
 

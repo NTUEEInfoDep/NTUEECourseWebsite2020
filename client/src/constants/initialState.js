@@ -4,8 +4,12 @@ const initialState = {
     sessionID: "",
     studentID: "",
   },
-  course: [],
+  course: {},
   selection: {},
+  ui: {
+    isLoading: false,
+    selectedGrade: 1,
+  },
 };
 
 export default initialState;

@@ -10,6 +10,10 @@ const useStyles = makeStyles({
   item: {
     backgroundColor: "#252525",
   },
+  icon: {
+    flexDirection: "row",
+    justifyContent: "flex-end",
+  },
 });
 
 const courseOption = (props) => {
@@ -19,7 +23,7 @@ const courseOption = (props) => {
     <div>
       <ListItem className={classes.item} button>
         <ListItemText primary={content} />
-        <ListItemIcon>
+        <ListItemIcon edge="end" className={classes.icon}>
           <ReorderIcon fontSize="small" />
         </ListItemIcon>
       </ListItem>

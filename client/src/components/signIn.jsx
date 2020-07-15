@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -10,7 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useDispatch } from "react-redux";
 
-import { login } from "../actions/sessionAction";
+import { getInitialState, login } from "../actions/sessionAction";
 
 function Copyright() {
   return (
@@ -48,6 +48,9 @@ export default function SignIn() {
     password: "",
   });
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getInitialState());
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();

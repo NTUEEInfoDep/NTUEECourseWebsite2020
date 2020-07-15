@@ -1,4 +1,22 @@
-import { LOGIN, LOGOUT } from "../constants/actionTypes";
+import {
+  LOGIN,
+  LOGOUT,
+  GET_INITIAL_STATE,
+  LOADING_START,
+  LOADING_END,
+} from "../constants/actionTypes";
+
+export const getInitialState = () => {
+  return async (dispatch) => {
+    dispatch({ type: LOADING_START });
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+    dispatch({
+      type: GET_INITIAL_STATE,
+      payload: { studentID: "", isLogin: false },
+    });
+    dispatch({ type: LOADING_END });
+  };
+};
 
 export const login = ({ id, password }) => {
   return (dispatch) => {

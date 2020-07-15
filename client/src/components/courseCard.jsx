@@ -29,7 +29,7 @@ const CourseCard = (props) => {
     "1": "大一",
     "2": "大二",
     "3": "大三",
-    "4": "十選二",
+    "4": "實驗",
   };
   const classes = useStyles();
   const handleCardClick = (e) => {

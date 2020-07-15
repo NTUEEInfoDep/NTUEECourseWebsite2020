@@ -7,8 +7,10 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useSelector, useDispatch } from "react-redux";
 
 import { getAllCourse } from "../actions/courseAction";
+import { selectGrade } from "../actions/uiActions";
 
 import CourseCard from "./courseCard";
+import Loading from "./loading";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -21,51 +23,56 @@ const useStyles = makeStyles((theme) => ({
 const Home = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getAllCourse());
-  }, [dispatch]);
-  const [selectedGrade, setSelectedGrade] = useState(1);
   const courses = useSelector((state) => state.course);
-
-  const handleSelectGrade = (key) => {
-    setSelectedGrade(key);
-  };
+  const { isLoading, selectedGrade } = useSelector((state) => state.ui);
   const grades = [
     { key: 1, val: "大一" },
     { key: 2, val: "大二" },
     { key: 3, val: "大三" },
-    { key: 4, val: "十選二" },
+    { key: 4, val: "實驗" },
   ];
+  useEffect(() => {
+    // don't want to dispatch the function every time router back
+    // if (Object.entries(courses).length === 0) dispatch(getAllCourse());
+    dispatch(getAllCourse());
+  }, [dispatch]);
+  const handleSelectGrade = (key) => {
+    dispatch(selectGrade(key));
+  };
 
   return (
     <Container component="div" maxWidth="lg">
       <CssBaseline />
-      <div className={classes.paper}>
-        <ButtonGroup
-          color="secondary"
-          size="large"
-          aria-label="outlined primary button group"
-        >
-          {grades.map((grade) => (
-            <Button
-              key={grade.key}
-              onClick={() => handleSelectGrade(grade.key)}
-            >
-              {grade.val}
-            </Button>
-          ))}
-        </ButtonGroup>
-        {courses.map((course) =>
-          course.grade === selectedGrade ? (
-            <CourseCard
-              courseID={course.courseID}
-              grade={course.grade}
-              name={course.name}
-              key={course.courseID}
-            />
-          ) : null
-        )}
-      </div>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <div className={classes.paper}>
+          <ButtonGroup
+            color="secondary"
+            size="large"
+            aria-label="outlined primary button group"
+          >
+            {grades.map((grade) => (
+              <Button
+                key={grade.key}
+                onClick={() => handleSelectGrade(grade.key)}
+              >
+                {grade.val}
+              </Button>
+            ))}
+          </ButtonGroup>
+          {courses[selectedGrade]
+            ? courses[selectedGrade].map((course) => (
+                <CourseCard
+                  courseID={course.courseID}
+                  grade={selectedGrade}
+                  name={course.name}
+                  key={course.courseID}
+                />
+              ))
+            : null}
+        </div>
+      )}
     </Container>
   );
 };
