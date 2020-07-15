@@ -125,6 +125,10 @@ router
   })
   .post(express.urlencoded({ extended: false }), (req, res, next) => {
     const { userID, password } = req.body;
+    if (!userID || !password) {
+      res.status(400).end();
+      return;
+    }
     if (fakeUsers[userID] !== password) {
       res.status(401).end();
       return;
@@ -165,28 +169,40 @@ router
       res.status(403).end();
       return;
     }
+    const { courseID } = req.params;
+    const course = courses[courseID];
+    if (!course) {
+      res.sendStatus(404);
+      return;
+    }
     next();
   })
   .get((req, res, next) => {
     const { userID } = req.session;
     const { courseID } = req.params;
     const course = courses[courseID];
+    const { name, type } = course;
     const selected = selections[userID][courseID];
     const unselected = course.options.filter(
       (option) => !selected.includes(option)
     );
-    const data = {
-      name: course.name,
-      type: course.type,
-      selected,
-      unselected,
-    };
-    res.send(data);
+    res.send({ name, type, selected, unselected });
   })
-  .put(express.json(), (req, res, next) => {
+  .put(express.json({ strict: false }), (req, res, next) => {
     const { userID } = req.session;
     const { courseID } = req.params;
-    // TODO: Validation
+    const { options } = courses[courseID];
+
+    // Validation
+    if (!Array.isArray(req.body)) {
+      res.status(400).end();
+      return;
+    }
+    if (!req.body.every((option) => options.includes(option))) {
+      res.status(400).end();
+      return;
+    }
+
     selections[userID][courseID] = req.body;
     res.status(204).end();
   });
