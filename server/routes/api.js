@@ -1,21 +1,48 @@
 const express = require("express");
 const session = require("express-session");
-
-const router = express.Router();
+const redis = require("redis");
+const connectRedis = require("connect-redis");
+const debug = require("debug")("ntuee-course:api");
+const deprecate = require("depd")("ntuee-course:api");
 
 // ========================================
 
+const router = express.Router();
+
 const sessionOptions = {
+  cookie: {
+    path: "/",
+    httpOnly: true,
+    secure: false,
+    maxAge: null,
+  },
+  resave: false,
+  saveUninitialized: false,
   secret: "5b991392-c5db-11ea-9576-80c5f2674335",
   unset: "destroy",
 };
 
 if (process.env.NODE_ENV === "production") {
-  throw new Error(
-    "Must set session store other than MemoryStore, not implemented yet"
-  );
-  sessionOptions.cookie.secure = true; // Need https
+  const RedisStore = connectRedis(session);
+  const redisClient = redis.createClient();
+  redisClient.on("error", console.error);
+  sessionOptions.store = new RedisStore({
+    client: redisClient,
+    prefix: "ntuee-course-session:",
+  });
+
+  // clear all sessions in redis
+  sessionOptions.store.clear();
+
+  // sessionOptions.cookie.secure = true; // Need https
+  if (!sessionOptions.cookie.secure) {
+    deprecate("Recommend to set secure cookie session if has https!\n");
+  }
 }
+
+router.use(session(sessionOptions));
+
+// ========================================
 
 const fakeUsers = {
   b01: "1",
@@ -26,58 +53,37 @@ const courses = {
   ex: {
     name: "電子學實驗",
     type: "0",
-    options: {
-      a: "星期一 2:00~3:00",
-      b: "星期二 6:00~7:00",
-    },
+    options: ["星期一 2:00~3:00", "星期二 6:00~7:00"],
   },
   ten: {
     name: "十選二",
     type: "0",
-    options: {
-      a: "數電",
-      b: "網多",
-    },
+    options: ["數電", "網多"],
   },
   ec: {
     name: "電路學",
     type: "1",
-    options: {
-      a: "A教授",
-      b: "B教授",
-    },
+    options: ["A教授", "B教授"],
   },
   clac: {
     name: "微積分",
     type: "1",
-    options: {
-      a: "A教授",
-      b: "B教授",
-    },
+    options: ["A教授", "B教授"],
   },
   ee: {
     name: "電子學",
     type: "2",
-    options: {
-      a: "A教授",
-      b: "B教授",
-    },
+    options: ["A教授", "B教授"],
   },
   em: {
     name: "電磁學",
     type: "2",
-    options: {
-      a: "A教授",
-      b: "B教授",
-    },
+    options: ["A教授", "B教授"],
   },
   algo: {
     name: "演算法",
     type: "3",
-    options: {
-      a: "A教授",
-      b: "B教授",
-    },
+    options: ["A教授", "B教授"],
   },
 };
 
@@ -104,8 +110,6 @@ const selections = {
 
 // ========================================
 
-router.use(session(sessionOptions));
-
 router.get("/", (req, res, next) => {
   res.send("api");
 });
@@ -119,7 +123,7 @@ router
     }
     res.send({ userID: req.session.userID });
   })
-  .post(express.urlencoded(), (req, res, next) => {
+  .post(express.urlencoded({ extended: false }), (req, res, next) => {
     const { userID, password } = req.body;
     if (fakeUsers[userID] !== password) {
       res.status(401).end();
@@ -167,18 +171,10 @@ router
     const { userID } = req.session;
     const { courseID } = req.params;
     const course = courses[courseID];
-    const selectedIDs = selections[userID][courseID];
-    const unselectedIDs = Object.keys(course.options).filter(
-      (optionID) => !selectedIDs.includes(optionID)
+    const selected = selections[userID][courseID];
+    const unselected = course.options.filter(
+      (option) => !selected.includes(option)
     );
-    const selected = [];
-    const unselected = [];
-    selectedIDs.forEach((optionID) => {
-      selected.push({ optionID, name: course.options[optionID] });
-    });
-    unselectedIDs.forEach((optionID) => {
-      unselected.push({ optionID, name: course.options[optionID] });
-    });
     const data = {
       name: course.name,
       type: course.type,
