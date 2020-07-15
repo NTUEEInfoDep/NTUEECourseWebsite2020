@@ -1,8 +1,8 @@
 const initialState = {
   session: {
     isLogin: false,
-    sessionID: "",
     studentID: "",
+    initialized: false,
   },
   course: {},
   selection: {},

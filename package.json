@@ -9,11 +9,14 @@
     "build-client": "webpack --config webpack.client.js --mode production",
     "build-server": "webpack --config webpack.server.js --mode production",
     "build": "npm run build-client && npm run build-server",
-    "start-client": "webpack-dev-server --config webpack.client.js --open --mode development",
-    "start-server": "npm run build-server && node ./build/server.js",
+    "build-client:dev": "webpack --config webpack.client.js --mode development",
+    "build-server:dev": "webpack --config webpack.server.js --mode development",
+    "build:dev": "npm run build-client:dev && npm run build-server:dev",
+    "start-client:dev": "webpack-dev-server --config webpack.client.js --open --mode development",
     "start-api:dev": "export DEBUG=ntuee-course:* && NODE_ENV=development nodemon server/app.js",
     "start-api:prod": "NODE_ENV=production node server/app.js",
-    "start": "npm run build && node build/server.js"
+    "start:dev": "npm run build:dev && NODE_ENV=development node build/server.js",
+    "start": "npm run build && NODE_ENV=production node build/server.js"
   },
   "author": "",
   "license": "ISC",

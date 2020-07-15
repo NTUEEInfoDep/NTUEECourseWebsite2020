@@ -5,7 +5,10 @@ module.exports = {
   target: "node",
   externals: [nodeExternals()],
   entry: {
-    server: "./client/server.jsx",
+    server: "./server/app.js",
+  },
+  resolve: {
+    extensions: [".js", ".jsx"],
   },
   output: {
     path: path.join(__dirname, "build"),

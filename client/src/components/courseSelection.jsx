@@ -33,17 +33,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const CourseSelection = () => {
-  const { id } = useParams();
+  const { courseID } = useParams();
   const classes = useStyles();
   const dispatch = useDispatch();
   const subTitles = {
-    "1": "大一",
-    "2": "大二",
-    "3": "大三",
-    "4": "實驗",
+    1: "大一",
+    2: "大二",
+    3: "大三",
+    0: "實驗",
   };
   useEffect(() => {
-    dispatch(getCourseSelection(id));
+    console.log(courseID);
+    dispatch(getCourseSelection(courseID));
   }, [dispatch]);
   const { name, grade, selected, unselected } = useSelector(
     (state) => state.selection

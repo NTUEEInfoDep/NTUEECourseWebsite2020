@@ -4,44 +4,74 @@ import {
   GET_INITIAL_STATE,
   LOADING_START,
   LOADING_END,
+  INITIALIZED,
 } from "../constants/actionTypes";
 
 export const getInitialState = () => {
   return async (dispatch) => {
     dispatch({ type: LOADING_START });
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    dispatch({
-      type: GET_INITIAL_STATE,
-      payload: { studentID: "", isLogin: false },
-    });
-    dispatch({ type: LOADING_END });
+    try {
+      const res = await fetch("/api/session", {
+        method: "GET",
+      });
+      if (res.ok) {
+        const json = await res.json();
+        dispatch({
+          type: GET_INITIAL_STATE,
+          payload: { studentID: json.userID, isLogin: true },
+        });
+      } else {
+        // type login fail
+        // redirect to login
+      }
+      dispatch({ type: INITIALIZED });
+      dispatch({ type: LOADING_END });
+    } catch (e) {
+      // redirect to error page
+    }
   };
 };
 
 export const login = ({ id, password }) => {
-  return (dispatch) => {
-    // return a function since this is async function
+  return async (dispatch) => {
     // fetch api to check login
-    setTimeout(() => {
-      dispatch({
-        type: LOGIN,
-        payload: {
-          isLogin: true,
-          sessionID: "abcdefg",
-          studentID: "b07901016",
+    try {
+      const res = await fetch("/api/session", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
         },
+        body: `userID=${id}&password=${password}`,
+        credentials: "include",
       });
-    }, 1000);
+      if (res.ok) {
+        const json = await res.json();
+        dispatch({
+          type: LOGIN,
+          payload: {
+            isLogin: true,
+            studentID: json.userID,
+          },
+        });
+      } else if (res.status === 403) {
+        // dispatch sign in fail
+      }
+    } catch (e) {
+      // redirect error page
+    }
   };
 };
 
 export const logout = () => {
-  return (dispatch) => {
+  return async (dispatch) => {
     // fetch api to logout
-    setTimeout(() => {
-      dispatch({
-        type: LOGOUT,
+    try {
+      await fetch("/api/session", {
+        method: "DELETE",
       });
-    }, 1000);
+      dispatch({ type: LOGOUT });
+    } catch (e) {
+      // redirect error page
+    }
   };
 };

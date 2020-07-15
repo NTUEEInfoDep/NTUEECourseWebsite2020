@@ -2,21 +2,25 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Route, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Loading from "../components/loading";
 
-const PrivateRoute = ({ children }) => {
+const PrivateRoute = ({ children, path }) => {
   // Check Login
-  const isLogin = useSelector((state) => state.session.isLogin);
+  const { initialized, isLogin } = useSelector((state) => state.session);
   return (
     <Route
-      render={() =>
-        isLogin ? children : <Redirect to={{ pathname: "/login" }} />
-      }
+      path={path}
+      render={() => {
+        if (!initialized) return <Loading />;
+        return isLogin ? children : <Redirect to="/login" />;
+      }}
     />
   );
 };
 
 PrivateRoute.propTypes = {
   children: PropTypes.element.isRequired,
+  path: PropTypes.string.isRequired,
 };
 
 export default PrivateRoute;

@@ -24,18 +24,18 @@ const Home = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const courses = useSelector((state) => state.course);
-  const { isLoading, selectedGrade } = useSelector((state) => state.ui);
+  const { selectedGrade } = useSelector((state) => state.ui);
   const grades = [
     { key: 1, val: "大一" },
     { key: 2, val: "大二" },
     { key: 3, val: "大三" },
-    { key: 4, val: "實驗" },
+    { key: 0, val: "實驗" },
   ];
   useEffect(() => {
     // don't want to dispatch the function every time router back
-    // if (Object.entries(courses).length === 0) dispatch(getAllCourse());
-    dispatch(getAllCourse());
-  }, [dispatch]);
+    if (Object.entries(courses).length === 0) dispatch(getAllCourse());
+    // dispatch(getAllCourse());
+  }, []);
   const handleSelectGrade = (key) => {
     dispatch(selectGrade(key));
   };
@@ -43,36 +43,32 @@ const Home = () => {
   return (
     <Container component="div" maxWidth="lg">
       <CssBaseline />
-      {isLoading ? (
-        <Loading />
-      ) : (
-        <div className={classes.paper}>
-          <ButtonGroup
-            color="secondary"
-            size="large"
-            aria-label="outlined primary button group"
-          >
-            {grades.map((grade) => (
-              <Button
-                key={grade.key}
-                onClick={() => handleSelectGrade(grade.key)}
-              >
-                {grade.val}
-              </Button>
-            ))}
-          </ButtonGroup>
-          {courses[selectedGrade]
-            ? courses[selectedGrade].map((course) => (
-                <CourseCard
-                  courseID={course.courseID}
-                  grade={selectedGrade}
-                  name={course.name}
-                  key={course.courseID}
-                />
-              ))
-            : null}
-        </div>
-      )}
+      <div className={classes.paper}>
+        <ButtonGroup
+          color="secondary"
+          size="large"
+          aria-label="outlined primary button group"
+        >
+          {grades.map((grade) => (
+            <Button
+              key={grade.key}
+              onClick={() => handleSelectGrade(grade.key)}
+            >
+              {grade.val}
+            </Button>
+          ))}
+        </ButtonGroup>
+        {courses[selectedGrade]
+          ? courses[selectedGrade].map((course) => (
+              <CourseCard
+                courseID={course.courseID}
+                grade={selectedGrade}
+                name={course.name}
+                key={course.courseID}
+              />
+            ))
+          : null}
+      </div>
     </Container>
   );
 };

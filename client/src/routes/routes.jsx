@@ -22,7 +22,7 @@ const Routes = () => (
       <PrivateRoute path="/home">
         <Home />
       </PrivateRoute>
-      <PrivateRoute path="/course/:id">
+      <PrivateRoute path="/course/:courseID">
         <CourseSelection />
       </PrivateRoute>
       <Redirect to="/login" />

@@ -1,5 +1,10 @@
 // Reducer that control session (login, logout)
-import { LOGIN, LOGOUT, GET_INITIAL_STATE } from "../constants/actionTypes";
+import {
+  LOGIN,
+  LOGOUT,
+  GET_INITIAL_STATE,
+  INITIALIZED,
+} from "../constants/actionTypes";
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -7,14 +12,19 @@ export default (state = {}, action) => {
       return {
         ...state,
         studentID: action.payload.studentID,
-        isLogin: action.payload.studentID,
+        isLogin: action.payload.isLogin,
+      };
+    }
+    case INITIALIZED: {
+      return {
+        ...state,
+        initialized: true,
       };
     }
     case LOGIN: {
       return {
         ...state,
         isLogin: action.payload.isLogin,
-        sessionID: action.payload.sessionID,
         studentID: action.payload.studentID,
       };
     }

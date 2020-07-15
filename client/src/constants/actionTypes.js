@@ -1,6 +1,7 @@
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
 export const GET_INITIAL_STATE = "GET_INITIAL_STATE";
+export const INITIALIZED = "INITIALIZED";
 
 export const GET_ALL_COURSE = "GET_ALL_COURSE";
 export const GET_COURSE_SELECTION = "GET_COURSE_SELECTION";

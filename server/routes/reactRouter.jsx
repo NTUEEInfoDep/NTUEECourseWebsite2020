@@ -4,12 +4,11 @@ import { renderToString } from "react-dom/server";
 import { StaticRouter } from "react-router";
 import { Provider } from "react-redux";
 
-import configureStore from "./src/store";
-import Routes from "./src/routes/routes.jsx";
-import initialState from "./src/constants/initialState";
+import configureStore from "../../client/src/store";
+import Routes from "../../client/src/routes/routes";
+import initialState from "../../client/src/constants/initialState";
 
-const app = express();
-const port = process.env.PORT || 3001;
+const router = express.Router();
 
 const renderer = (req) => {
   const store = configureStore(initialState);
@@ -21,7 +20,7 @@ const renderer = (req) => {
     </Provider>
   );
   return `
-    <!doctype html>
+  <!DOCTYPE html>
     <html>
     <head>
         <title>NTU Course</title>
@@ -45,13 +44,9 @@ const renderer = (req) => {
     </html>`;
 };
 
-app.use(express.static("bundle"));
-
-app.get("*", (req, res) => {
+router.get("*", (req, res) => {
   const content = renderer(req);
   res.send(content);
 });
 
-app.listen(port, () => {
-  console.log(`Server sider rendering on port ${port}`);
-});
+export default router;

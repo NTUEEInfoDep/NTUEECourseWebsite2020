@@ -26,10 +26,10 @@ const CourseCard = (props) => {
   const { courseID, grade, name } = props;
   const history = useHistory();
   const subTitles = {
-    "1": "大一",
-    "2": "大二",
-    "3": "大三",
-    "4": "實驗",
+    1: "大一",
+    2: "大二",
+    3: "大三",
+    0: "實驗",
   };
   const classes = useStyles();
   const handleCardClick = (e) => {

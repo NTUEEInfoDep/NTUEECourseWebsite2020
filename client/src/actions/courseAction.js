@@ -10,65 +10,49 @@ export const getAllCourse = () => {
   return async (dispatch) => {
     // fetch api to get all course
     dispatch({ type: LOADING_START });
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    dispatch({
-      type: GET_ALL_COURSE,
-      // payload for example
-      payload: {
-        1: [
-          {
-            name: "電路學",
-            courseID: "4567",
-          },
-        ],
-        2: [
-          {
-            name: "電子學",
-            courseID: "12345",
-          },
-          {
-            name: "電詞學",
-            courseID: "8787878",
-          },
-        ],
-        3: [
-          {
-            name: "演算法",
-            courseID: "7122",
-          },
-        ],
-        4: [
-          {
-            name: "電子學實驗",
-            courseID: "12345",
-          },
-          {
-            name: "十選二實驗",
-            courseID: "03734301",
-          },
-        ],
-      },
-    });
-    dispatch({ type: LOADING_END });
+    try {
+      const res = await fetch("/api/courses", { method: "GET" });
+      if (res.ok) {
+        const json = await res.json();
+        dispatch({
+          type: GET_ALL_COURSE,
+          // payload for example
+          payload: json,
+        });
+      } else {
+        // redirect to login page
+      }
+      dispatch({ type: LOADING_END });
+    } catch (e) {
+      // redirect to error page
+    }
   };
 };
 
-export const getCourseSelection = () => {
+export const getCourseSelection = (id) => {
   return async (dispatch) => {
     // fetch api to get a user's course selection
     dispatch({ type: LOADING_START });
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    dispatch({
-      type: GET_COURSE_SELECTION,
-      // payload for example
-      payload: {
-        name: "電子學",
-        grade: 2,
-        selected: ["嵌入是", "生醫"],
-        unselected: ["電力", "電子", "微波"],
-      },
-    });
-    dispatch({ type: LOADING_END });
+    try {
+      const res = await fetch(`/api/selections/${id}`, { method: "GET" });
+      if (res.ok) {
+        const json = await res.json();
+        dispatch({
+          type: GET_COURSE_SELECTION,
+          payload: {
+            name: json.name,
+            grade: json.type,
+            selected: json.selected.map((el) => el.name),
+            unselected: json.unselected.map((el) => el.name),
+          },
+        });
+      } else {
+        // redirect to login
+      }
+      dispatch({ type: LOADING_END });
+    } catch (e) {
+      // redirect to error page
+    }
   };
 };
 

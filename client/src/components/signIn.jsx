@@ -10,7 +10,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useDispatch } from "react-redux";
 
-import { getInitialState, login } from "../actions/sessionAction";
+import { login } from "../actions/sessionAction";
 
 function Copyright() {
   return (
@@ -48,9 +48,6 @@ export default function SignIn() {
     password: "",
   });
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getInitialState());
-  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
