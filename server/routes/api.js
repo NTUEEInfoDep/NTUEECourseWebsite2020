@@ -53,6 +53,7 @@ const courses = {
   ex: {
     name: "電子學實驗",
     type: "0",
+    description: "這是一門神奇的課",
     options: ["星期一 2:00~3:00", "星期二 6:00~7:00"],
   },
   ten: {
@@ -69,31 +70,37 @@ const courses = {
       "交電",
       "電路",
     ],
+    description: "這是一門神奇的課",
   },
   ec: {
     name: "電路學",
     type: "1",
     options: ["A教授", "B教授", "C教授", "D教授"],
+    description: "這是一門神奇的課",
   },
   clac: {
     name: "微積分",
     type: "1",
     options: ["A教授", "B教授", "C教授", "D教授"],
+    description: "這是一門神奇的課",
   },
   ee: {
     name: "電子學",
     type: "2",
     options: ["A教授", "B教授", "C教授", "D教授"],
+    description: "這是一門神奇的課",
   },
   em: {
     name: "電磁學",
     type: "2",
     options: ["A教授", "B教授", "C教授", "D教授"],
+    description: "這是一門神奇的課",
   },
   algo: {
     name: "演算法",
     type: "3",
     options: ["A教授", "B教授", "C教授", "D教授"],
+    description: "這是一門神奇的課",
   },
 };
 
@@ -191,12 +198,12 @@ router
     const { userID } = req.session;
     const { courseID } = req.params;
     const course = courses[courseID];
-    const { name, type } = course;
+    const { name, type, description } = course;
     const selected = selections[userID][courseID];
     const unselected = course.options.filter(
       (option) => !selected.includes(option)
     );
-    res.send({ name, type, selected, unselected });
+    res.send({ name, type, description, selected, unselected });
   })
   .put(express.json({ strict: false }), (req, res, next) => {
     const { userID } = req.session;
