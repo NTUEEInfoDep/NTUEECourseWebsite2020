@@ -129,10 +129,6 @@ router
     res.status(201).send({ userID });
   })
   .delete((req, res, next) => {
-    if (!req.session.userID) {
-      res.status(403).end();
-      return;
-    }
     req.session = null;
     res.status(204).end();
   });
