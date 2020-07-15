@@ -2,6 +2,7 @@ import {
   LOADING_START,
   LOADING_END,
   SELECT_GRADE,
+  LOGIN_ERROR,
 } from "../constants/actionTypes";
 
 export default (state = {}, action) => {
@@ -22,6 +23,12 @@ export default (state = {}, action) => {
       return {
         ...state,
         selectedGrade: action.payload.selectedGrade,
+      };
+    }
+    case LOGIN_ERROR: {
+      return {
+        ...state,
+        loginError: action.payload.loginError,
       };
     }
     default:

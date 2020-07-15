@@ -89,7 +89,7 @@ const CourseSelection = () => {
               <DragDropContext onDragEnd={onDragEnd}>
                 <Grid container>
                   <Grid item xs={12} sm={6} className={classes.selectionList}>
-                    <Typography variant="h5" gutterBottom>
+                    <Typography variant="h6" gutterBottom>
                       已選課程
                     </Typography>
                     <Droppable droppableId="selected">
@@ -129,7 +129,7 @@ const CourseSelection = () => {
                   </Grid>
                   <br />
                   <Grid item xs={12} sm={6} className={classes.selectionList}>
-                    <Typography variant="h5" gutterBottom>
+                    <Typography variant="h6" gutterBottom>
                       未選課程
                     </Typography>
                     <Droppable droppableId="unselected">

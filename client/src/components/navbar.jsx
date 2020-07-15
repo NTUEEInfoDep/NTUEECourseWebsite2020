@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { useSelector, useDispatch } from "react-redux";
 import { Link as RouterLink } from "react-router-dom";
 
@@ -51,14 +52,19 @@ const NavBar = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" className={classes.title}>
-            NTUEE Course System
+            NTUEE Course
           </Typography>
           {isLogin === true ? (
             <div>
-              <Button color="inherit">{studentID}</Button>
-              <Button color="inherit" onClick={handleLogout}>
-                logout
+              <Button style={{ color: "white" }} disabled>
+                {studentID}
               </Button>
+              {/* <Button color="inherit" onClick={handleLogout}>
+                logout
+              </Button> */}
+              <IconButton color="inherit" onClick={handleLogout}>
+                <ExitToAppIcon />
+              </IconButton>
             </div>
           ) : null}
         </Toolbar>

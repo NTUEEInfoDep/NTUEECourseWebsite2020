@@ -2,6 +2,7 @@ import {
   LOADING_START,
   LOADING_END,
   SELECT_GRADE,
+  LOGIN_ERROR,
 } from "../constants/actionTypes";
 
 export const loadingStart = () => ({ type: LOADING_START });
@@ -11,4 +12,8 @@ export const selectGrade = (selectedGrade) => ({
   payload: {
     selectedGrade,
   },
+});
+export const setLoginError = (loginError) => ({
+  type: LOGIN_ERROR,
+  payload: { loginError },
 });

@@ -9,6 +9,7 @@ const initialState = {
   ui: {
     isLoading: false,
     selectedGrade: 1,
+    loginError: false,
   },
 };
 

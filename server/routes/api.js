@@ -45,7 +45,7 @@ router.use(session(sessionOptions));
 // ========================================
 
 const fakeUsers = {
-  b01: "1",
+  b01901123: "1",
   b02: "2",
 };
 
@@ -58,37 +58,47 @@ const courses = {
   ten: {
     name: "十選二",
     type: "0",
-    options: ["數電", "網多"],
+    options: [
+      "數電",
+      "網多",
+      "嵌入式",
+      "電子電路",
+      "光電",
+      "微波",
+      "電腦",
+      "交電",
+      "電路",
+    ],
   },
   ec: {
     name: "電路學",
     type: "1",
-    options: ["A教授", "B教授"],
+    options: ["A教授", "B教授", "C教授", "D教授"],
   },
   clac: {
     name: "微積分",
     type: "1",
-    options: ["A教授", "B教授"],
+    options: ["A教授", "B教授", "C教授", "D教授"],
   },
   ee: {
     name: "電子學",
     type: "2",
-    options: ["A教授", "B教授"],
+    options: ["A教授", "B教授", "C教授", "D教授"],
   },
   em: {
     name: "電磁學",
     type: "2",
-    options: ["A教授", "B教授"],
+    options: ["A教授", "B教授", "C教授", "D教授"],
   },
   algo: {
     name: "演算法",
     type: "3",
-    options: ["A教授", "B教授"],
+    options: ["A教授", "B教授", "C教授", "D教授"],
   },
 };
 
 const selections = {
-  b01: {
+  b01901123: {
     ex: [],
     ten: [],
     ec: [],

@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import Box from "@material-ui/core/Box";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import FormHelperText from "@material-ui/core/FormHelperText";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-import { useDispatch } from "react-redux";
+import { makeStyles } from "@material-ui/core/styles";
+import { useSelector, useDispatch } from "react-redux";
 
 import { login } from "../actions/sessionAction";
+import { setLoginError } from "../actions/uiActions";
 
 function Copyright() {
   return (
@@ -43,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignIn() {
   const classes = useStyles();
+  const error = useSelector((state) => state.ui.loginError);
   const [data, setData] = useState({
     id: "",
     password: "",
@@ -52,6 +55,15 @@ export default function SignIn() {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(login(data));
+  };
+
+  const handleIDChange = (e) => {
+    setData({ ...data, id: e.target.value });
+    dispatch(setLoginError(false));
+  };
+  const handlePasswordChange = (e) => {
+    setData({ ...data, password: e.target.value });
+    dispatch(setLoginError(false));
   };
 
   return (
@@ -66,6 +78,7 @@ export default function SignIn() {
         </Typography>
         <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
+            error={error}
             variant="outlined"
             margin="normal"
             required
@@ -74,10 +87,11 @@ export default function SignIn() {
             label="Student ID"
             name="studenID"
             value={data.id}
-            onChange={(e) => setData({ ...data, id: e.target.value })}
+            onChange={handleIDChange}
             autoFocus
           />
           <TextField
+            error={error}
             variant="outlined"
             margin="normal"
             required
@@ -87,9 +101,12 @@ export default function SignIn() {
             type="password"
             id="password"
             value={data.password}
-            onChange={(e) => setData({ ...data, password: e.target.value })}
+            onChange={handlePasswordChange}
             autoComplete="current-password"
           />
+          <FormHelperText error={error}>
+            {error ? "Invalid Student ID/Password" : null}
+          </FormHelperText>
           <Button
             type="submit"
             fullWidth

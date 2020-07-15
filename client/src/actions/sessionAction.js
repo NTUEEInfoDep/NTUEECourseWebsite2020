@@ -5,6 +5,7 @@ import {
   LOADING_START,
   LOADING_END,
   INITIALIZED,
+  LOGIN_ERROR,
 } from "../constants/actionTypes";
 
 export const getInitialState = () => {
@@ -55,9 +56,10 @@ export const login = ({ id, password }) => {
             studentID: json.userID,
           },
         });
+        dispatch({ type: LOGIN_ERROR, payload: { loginError: false } });
       } else {
         // dispatch sign in fail
-        window.location = "/";
+        dispatch({ type: LOGIN_ERROR, payload: { loginError: true } });
       }
     } catch (e) {
       // redirect error page
