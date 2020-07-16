@@ -49,33 +49,6 @@ router.use(session(sessionOptions));
 
 // ========================================
 
-const selections = {
-  b01901123: {
-    ex: [],
-    ten: [],
-    ec: [],
-    clac: [],
-    ee: [],
-    em: [],
-    algo: [],
-  },
-  b02: {
-    ex: [],
-    ten: [],
-    ec: [],
-    clac: [],
-    ee: [],
-    em: [],
-    algo: [],
-  },
-};
-
-// ========================================
-
-router.get("/", (req, res, next) => {
-  res.send("api");
-});
-
 router
   .route("/session")
   .get(
@@ -160,24 +133,27 @@ router
         return;
       }
       const { courseID } = req.params;
-      const course = courses[courseID];
+      const course = await model.Course.findOne(
+        { id: courseID },
+        "name type description options"
+      );
       if (!course) {
         res.sendStatus(404);
         return;
       }
+      req.course = course;
       next();
     })
   )
   .get(
     asyncHandler(async (req, res, next) => {
-      const { userID } = req.session;
       const { courseID } = req.params;
-      const course = courses[courseID];
-      const { name, type, description } = course;
-      const selected = selections[userID][courseID];
-      const unselected = course.options.filter(
-        (option) => !selected.includes(option)
-      );
+      const { userID } = req.session;
+      const { name, type, description, options } = req.course;
+      const user = await model.Student.findOne({ userID }, "selections");
+      const { selections } = user;
+      const selected = selections[courseID];
+      const unselected = options.filter((option) => !selected.includes(option));
       res.send({ name, type, description, selected, unselected });
     })
   )
@@ -186,7 +162,7 @@ router
     asyncHandler(async (req, res, next) => {
       const { userID } = req.session;
       const { courseID } = req.params;
-      const { options } = courses[courseID];
+      const { options } = req.course;
 
       // Validation
       if (!Array.isArray(req.body)) {
@@ -198,7 +174,9 @@ router
         return;
       }
 
-      selections[userID][courseID] = req.body;
+      const update = {};
+      update[`selections.${courseID}`] = req.body;
+      const result = await model.Student.updateOne({ userID }, update);
       res.status(204).end();
     })
   );
