@@ -12,7 +12,8 @@
     "develop-client": "webpack-dev-server --config webpack.client.js --open --mode development",
     "develop-server": "webpack --config webpack.server.js --watch --mode development",
     "start-server": "export DEBUG=ntuee-course:* && NODE_ENV=development nodemon build/server.js",
-    "start": "npm run build && NODE_ENV=production node build/server.js"
+    "start": "npm run build && NODE_ENV=production node build/server.js",
+    "reset-db": "node ./server/database/init.js"
   },
   "author": "",
   "license": "ISC",

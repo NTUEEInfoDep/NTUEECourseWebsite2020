@@ -4,10 +4,25 @@ const courses = require("./data/courses");
 // ========================================
 
 const courseSchema = new mongoose.Schema({
-  id: String,
-  name: String,
-  type: String,
-  description: String,
+  id: {
+    type: String,
+    required: true,
+    immutable: true,
+  },
+  name: {
+    type: String,
+    required: true,
+    immutable: true,
+  },
+  type: {
+    type: String,
+    required: true,
+    immutable: true,
+  },
+  description: {
+    type: String,
+    immutable: true,
+  },
   options: [String],
 });
 
@@ -22,9 +37,21 @@ courseIDs.forEach((courseID) => {
 });
 
 const userSchema = new mongoose.Schema({
-  userID: String,
-  grade: Number,
-  password: String,
+  userID: {
+    type: String,
+    required: true,
+    immutable: true,
+  },
+  grade: {
+    type: Number,
+    required: true,
+    immutable: true,
+  },
+  password: {
+    type: String,
+    required: true,
+    immutable: true,
+  },
   selections,
 });
 

@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const constants = require("../constants");
 const model = require("./model");
 const courses = require("./data/courses");
+const students = require("./data/students");
 
 // ========================================
 
@@ -28,6 +29,15 @@ db.once("open", async () => {
     })
   );
   console.log("All courses are saved.");
+
+  // Save all students
+  await Promise.all(
+    students.map(async (student) => {
+      const studentDocument = new model.Student(student);
+      await studentDocument.save();
+    })
+  );
+  console.log("All students are saved.");
 
   await mongoose.disconnect();
 });
