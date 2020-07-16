@@ -9,6 +9,7 @@ const port = process.env.PORT || 8000;
 const app = express();
 
 app.use(logger("dev"));
+app.use(express.static("assets"));
 app.use(express.static("bundle")); // frontend static file
 
 app.use("/api", apiRouter);
