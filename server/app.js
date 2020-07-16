@@ -1,10 +1,9 @@
+import apiRouter from "./routes/api";
 import reactRouter from "./routes/reactRouter";
 
 const mongoose = require("mongoose");
 const express = require("express");
 const logger = require("morgan");
-
-const apiRouter = require("./routes/api");
 const constants = require("./constants.json");
 
 // ========================================

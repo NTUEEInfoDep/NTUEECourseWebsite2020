@@ -1,9 +1,14 @@
 const express = require("express");
 const session = require("express-session");
+const asyncHandler = require("express-async-handler");
 const redis = require("redis");
 const connectRedis = require("connect-redis");
+const bcrypt = require("bcrypt");
 const debug = require("debug")("ntuee-course:api");
 const deprecate = require("depd")("ntuee-course:api");
+
+const constants = require("../constants.json");
+const model = require("../database/model");
 
 // ========================================
 
@@ -43,11 +48,6 @@ if (process.env.NODE_ENV === "production") {
 router.use(session(sessionOptions));
 
 // ========================================
-
-const fakeUsers = {
-  b01901123: "1",
-  b02: "2",
-};
 
 const courses = {
   ex: {
@@ -133,95 +133,126 @@ router.get("/", (req, res, next) => {
 
 router
   .route("/session")
-  .get((req, res, next) => {
+  .get(
+    asyncHandler(async (req, res, next) => {
+      if (!req.session.userID) {
+        res.status(403).end();
+        return;
+      }
+      res.send({ userID: req.session.userID });
+    })
+  )
+  .post(
+    express.urlencoded({ extended: false }),
+    asyncHandler(async (req, res, next) => {
+      let { userID } = req.body;
+      const { password } = req.body;
+
+      if (!userID || !password) {
+        res.status(400).end();
+        return;
+      }
+      userID = userID.toUpperCase();
+
+      const user = await model.Student.findOne({ userID }).exec();
+      if (!user) {
+        res.status(400).end();
+        return;
+      }
+      const passwordHash = user.password;
+
+      // Check password with the passwordHash
+      const match = await bcrypt.compare(password, passwordHash);
+      if (!match) {
+        res.status(401).end();
+        return;
+      }
+
+      req.session.userID = userID;
+      res.status(201).send({ userID });
+    })
+  )
+  .delete(
+    asyncHandler(async (req, res, next) => {
+      req.session = null;
+      res.status(204).end();
+    })
+  );
+
+router.get(
+  "/courses",
+  asyncHandler(async (req, res, next) => {
     if (!req.session.userID) {
       res.status(403).end();
       return;
     }
-    res.send({ userID: req.session.userID });
+    const data = {};
+    Object.keys(courses).forEach((courseID) => {
+      const courseType = courses[courseID].type;
+      const singleCourse = {
+        courseID,
+        name: courses[courseID].name,
+      };
+      if (!data[courseType]) {
+        data[courseType] = [singleCourse];
+      } else {
+        data[courseType].push(singleCourse);
+      }
+    });
+    res.send(data);
   })
-  .post(express.urlencoded({ extended: false }), (req, res, next) => {
-    const { userID, password } = req.body;
-    if (!userID || !password) {
-      res.status(400).end();
-      return;
-    }
-    if (fakeUsers[userID] !== password) {
-      res.status(401).end();
-      return;
-    }
-    req.session.userID = userID;
-    res.status(201).send({ userID });
-  })
-  .delete((req, res, next) => {
-    req.session = null;
-    res.status(204).end();
-  });
-
-router.get("/courses", (req, res, next) => {
-  if (!req.session.userID) {
-    res.status(403).end();
-    return;
-  }
-  const data = {};
-  Object.keys(courses).forEach((courseID) => {
-    const courseType = courses[courseID].type;
-    const singleCourse = {
-      courseID,
-      name: courses[courseID].name,
-    };
-    if (!data[courseType]) {
-      data[courseType] = [singleCourse];
-    } else {
-      data[courseType].push(singleCourse);
-    }
-  });
-  res.send(data);
-});
+);
 
 router
   .route("/selections/:courseID")
-  .all((req, res, next) => {
-    if (!req.session.userID) {
-      res.status(403).end();
-      return;
-    }
-    const { courseID } = req.params;
-    const course = courses[courseID];
-    if (!course) {
-      res.sendStatus(404);
-      return;
-    }
-    next();
-  })
-  .get((req, res, next) => {
-    const { userID } = req.session;
-    const { courseID } = req.params;
-    const course = courses[courseID];
-    const { name, type, description } = course;
-    const selected = selections[userID][courseID];
-    const unselected = course.options.filter(
-      (option) => !selected.includes(option)
-    );
-    res.send({ name, type, description, selected, unselected });
-  })
-  .put(express.json({ strict: false }), (req, res, next) => {
-    const { userID } = req.session;
-    const { courseID } = req.params;
-    const { options } = courses[courseID];
+  .all(
+    asyncHandler(async (req, res, next) => {
+      if (!req.session.userID) {
+        res.status(403).end();
+        return;
+      }
+      const { courseID } = req.params;
+      const course = courses[courseID];
+      if (!course) {
+        res.sendStatus(404);
+        return;
+      }
+      next();
+    })
+  )
+  .get(
+    asyncHandler(async (req, res, next) => {
+      const { userID } = req.session;
+      const { courseID } = req.params;
+      const course = courses[courseID];
+      const { name, type, description } = course;
+      const selected = selections[userID][courseID];
+      const unselected = course.options.filter(
+        (option) => !selected.includes(option)
+      );
+      res.send({ name, type, description, selected, unselected });
+    })
+  )
+  .put(
+    express.json({ strict: false }),
+    asyncHandler(async (req, res, next) => {
+      const { userID } = req.session;
+      const { courseID } = req.params;
+      const { options } = courses[courseID];
 
-    // Validation
-    if (!Array.isArray(req.body)) {
-      res.status(400).end();
-      return;
-    }
-    if (!req.body.every((option) => options.includes(option))) {
-      res.status(400).end();
-      return;
-    }
+      // Validation
+      if (!Array.isArray(req.body)) {
+        res.status(400).end();
+        return;
+      }
+      if (!req.body.every((option) => options.includes(option))) {
+        res.status(400).end();
+        return;
+      }
 
-    selections[userID][courseID] = req.body;
-    res.status(204).end();
-  });
+      selections[userID][courseID] = req.body;
+      res.status(204).end();
+    })
+  );
 
-module.exports = router;
+export default router;
