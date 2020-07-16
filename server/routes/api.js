@@ -49,61 +49,6 @@ router.use(session(sessionOptions));
 
 // ========================================
 
-const courses = {
-  ex: {
-    name: "電子學實驗",
-    type: "0",
-    description: "這是一門神奇的課",
-    options: ["星期一 2:00~3:00", "星期二 6:00~7:00"],
-  },
-  ten: {
-    name: "十選二",
-    type: "0",
-    options: [
-      "數電",
-      "網多",
-      "嵌入式",
-      "電子電路",
-      "光電",
-      "微波",
-      "電腦",
-      "交電",
-      "電路",
-    ],
-    description: "這是一門神奇的課",
-  },
-  ec: {
-    name: "電路學",
-    type: "1",
-    options: ["A教授", "B教授", "C教授", "D教授"],
-    description: "這是一門神奇的課",
-  },
-  clac: {
-    name: "微積分",
-    type: "1",
-    options: ["A教授", "B教授", "C教授", "D教授"],
-    description: "這是一門神奇的課",
-  },
-  ee: {
-    name: "電子學",
-    type: "2",
-    options: ["A教授", "B教授", "C教授", "D教授"],
-    description: "這是一門神奇的課",
-  },
-  em: {
-    name: "電磁學",
-    type: "2",
-    options: ["A教授", "B教授", "C教授", "D教授"],
-    description: "這是一門神奇的課",
-  },
-  algo: {
-    name: "演算法",
-    type: "3",
-    options: ["A教授", "B教授", "C教授", "D教授"],
-    description: "這是一門神奇的課",
-  },
-};
-
 const selections = {
   b01901123: {
     ex: [],
@@ -154,7 +99,7 @@ router
       }
       userID = userID.toUpperCase();
 
-      const user = await model.Student.findOne({ userID }).exec();
+      const user = await model.Student.findOne({ userID }, "password").exec();
       if (!user) {
         res.status(400).end();
         return;
@@ -186,19 +131,22 @@ router.get(
       res.status(403).end();
       return;
     }
+
+    const coursesGroup = await model.Course.aggregate([
+      {
+        $group: {
+          _id: "$type",
+          courses: { $push: { courseID: "$id", name: "$name" } },
+        },
+      },
+    ]);
+
     const data = {};
-    Object.keys(courses).forEach((courseID) => {
-      const courseType = courses[courseID].type;
-      const singleCourse = {
-        courseID,
-        name: courses[courseID].name,
-      };
-      if (!data[courseType]) {
-        data[courseType] = [singleCourse];
-      } else {
-        data[courseType].push(singleCourse);
-      }
+    coursesGroup.forEach((group) => {
+      /* eslint-disable-next-line no-underscore-dangle */
+      data[group._id] = group.courses;
     });
+
     res.send(data);
   })
 );
