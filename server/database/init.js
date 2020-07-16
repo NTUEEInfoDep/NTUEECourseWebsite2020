@@ -1,9 +1,12 @@
 const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
 
 const constants = require("../constants");
 const model = require("./model");
 const courses = require("./data/courses");
-const students = require("./data/students");
+
+// Students with raw passwords, must be hashed later
+const studentsRaw = require("./data/students");
 
 // ========================================
 
@@ -17,6 +20,7 @@ db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", async () => {
   console.log("Successfully connect to MongoDB!");
   console.log(`dbName = "${constants.dbName}"`);
+
   // Drop the db
   await db.dropDatabase();
   console.log("Database has been cleared.");
@@ -30,6 +34,20 @@ db.once("open", async () => {
   );
   console.log("All courses are saved.");
 
+  // Use bcrypt to hash all passwords
+  console.log("Hashing the passwords of all students...");
+  const students = [];
+  await Promise.all(
+    studentsRaw.map(async (studentRaw) => {
+      const salt = await bcrypt.genSalt(constants.saltRounds);
+      const hash = await bcrypt.hash(studentRaw.password, salt);
+      const student = { ...studentRaw };
+      student.password = hash;
+      students.push(student);
+    })
+  );
+  console.log("All passwords are hashed!");
+
   // Save all students
   await Promise.all(
     students.map(async (student) => {
@@ -39,5 +57,6 @@ db.once("open", async () => {
   );
   console.log("All students are saved.");
 
+  // Disconnect
   await mongoose.disconnect();
 });

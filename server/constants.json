@@ -1,3 +1,4 @@
 {
-  "dbName": "ntuee-course"
+  "dbName": "ntuee-course",
+  "saltRounds": 10
 }
