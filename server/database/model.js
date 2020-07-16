@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const courses = require("./data/courses");
+const courses = require("./data/courses.json");
 
 // ========================================
 
