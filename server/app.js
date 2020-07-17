@@ -8,11 +8,12 @@ const constants = require("./constants.json");
 
 // ========================================
 
+const mongodbHost = process.env.DEPLOY ? "mongodb" : "localhost";
 const port = process.env.PORT || 8000;
 
 // ========================================
 
-mongoose.connect(`mongodb://mongodb/${constants.dbName}`, {
+mongoose.connect(`mongodb://${mongodbHost}/${constants.dbName}`, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -25,7 +26,9 @@ db.once("open", () => {
 
   const app = express();
 
-  app.set('trust proxy', 1);
+  if (process.env.DEPLOY) {
+    app.set("trust proxy", 1);
+  }
 
   app.use(logger("dev"));
   app.use(express.static("assets"));

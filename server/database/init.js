@@ -10,7 +10,11 @@ const studentsRaw = require("./private-data/students.json");
 
 // ========================================
 
-mongoose.connect(`mongodb://mongodb/${constants.dbName}`, {
+const mongodbHost = process.env.DEPLOY ? "mongodb" : "localhost";
+
+// ========================================
+
+mongoose.connect(`mongodb://${mongodbHost}/${constants.dbName}`, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
