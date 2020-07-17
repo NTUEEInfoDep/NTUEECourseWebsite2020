@@ -8,13 +8,14 @@ import {
 export default (state = {}, action) => {
   switch (action.type) {
     case GET_COURSE_SELECTION: {
-      const { name, grade, selected, unselected } = action.payload;
+      const { name, grade, selected, unselected, description } = action.payload;
       return {
         ...state,
         name,
         grade,
         selected: [...selected],
         unselected: [...unselected],
+        description,
       };
     }
     case SAVE_SELECTION: {

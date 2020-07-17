@@ -46,7 +46,7 @@ const CourseSelection = () => {
   useEffect(() => {
     dispatch(getCourseSelection(courseID));
   }, [dispatch]);
-  const { name, grade, selected, unselected } = useSelector(
+  const { name, grade, selected, unselected, description } = useSelector(
     (state) => state.selection
   );
   const { isLoading } = useSelector((state) => state.ui);
@@ -78,13 +78,19 @@ const CourseSelection = () => {
             color="secondary"
           >
             <Link color="inherit" component={RouterLink} to="/home">
-              首頁
+              {subTitles[grade]}
             </Link>
-            <div>{subTitles[grade]}</div>
             <div>{name}</div>
           </Breadcrumbs>
 
           <div className={classes.selection}>
+            {description && description.length > 0 ? (
+              <Typography variant="body1" gutterBottom>
+                說明：{description}
+                <hr style={{ borderTop: "1px dotted", borderBottom: "none" }} />
+              </Typography>
+            ) : null}
+
             <List>
               <DragDropContext onDragEnd={onDragEnd}>
                 <Grid container>
@@ -113,8 +119,7 @@ const CourseSelection = () => {
                                     >
                                       <CourseOption
                                         content={content}
-                                        index={content}
-                                        order={content}
+                                        index={ind}
                                       />
                                       {innerProvided.placeholder}
                                     </div>
@@ -153,8 +158,7 @@ const CourseSelection = () => {
                                     >
                                       <CourseOption
                                         content={content}
-                                        index={content}
-                                        order={content}
+                                        index={ind}
                                       />
                                       {innerProvided.placeholder}
                                     </div>

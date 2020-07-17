@@ -38,7 +38,13 @@ export const getCourseSelection = (id) => {
     try {
       const res = await fetch(`/api/selections/${id}`, { method: "GET" });
       if (res.ok) {
-        const { name, type, selected, unselected } = await res.json();
+        const {
+          name,
+          type,
+          selected,
+          unselected,
+          description,
+        } = await res.json();
         dispatch({
           type: GET_COURSE_SELECTION,
           payload: {
@@ -46,6 +52,7 @@ export const getCourseSelection = (id) => {
             grade: type,
             selected,
             unselected,
+            description,
           },
         });
       } else {

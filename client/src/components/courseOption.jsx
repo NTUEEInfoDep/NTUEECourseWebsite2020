@@ -17,12 +17,12 @@ const useStyles = makeStyles({
 });
 
 const courseOption = (props) => {
-  const { content } = props;
+  const { content, index } = props;
   const classes = useStyles();
   return (
     <div>
       <ListItem className={classes.item} button>
-        <ListItemText primary={content} />
+        <ListItemText primary={`${index + 1}.  ${content}`} />
         <ListItemIcon edge="end" className={classes.icon}>
           <ReorderIcon fontSize="small" />
         </ListItemIcon>
@@ -33,6 +33,7 @@ const courseOption = (props) => {
 
 courseOption.propTypes = {
   content: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 export default courseOption;
