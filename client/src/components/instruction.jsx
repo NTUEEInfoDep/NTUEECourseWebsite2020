@@ -31,7 +31,7 @@ const Instruction = (props) => {
         <DialogContentText>
           <ul>
             <li>點進課程</li>
-            <li>拖曳排序愈選志願</li>
+            <li>拖曳排序預選志願</li>
             <li>選完課登出</li>
           </ul>
         </DialogContentText>
