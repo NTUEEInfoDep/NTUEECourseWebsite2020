@@ -11,6 +11,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useParams, Link as RouterLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import sanitizeHtml from "sanitize-html";
+import parse from "html-react-parser";
 import CourseOption from "./courseOption";
 import {
   getCourseSelection,
@@ -49,6 +51,7 @@ const CourseSelection = () => {
   const { name, grade, selected, unselected, description } = useSelector(
     (state) => state.selection
   );
+  const cleanHtml = sanitizeHtml(description);
   const { isLoading } = useSelector((state) => state.ui);
   const onDragEnd = (result) => {
     // drag end move, reorder the state and update state
@@ -86,7 +89,7 @@ const CourseSelection = () => {
           <div className={classes.selection}>
             {description && description.length > 0 ? (
               <Typography variant="body1" gutterBottom>
-                說明：{description}
+                說明：{parse(cleanHtml)}
                 <hr style={{ borderTop: "1px dotted", borderBottom: "none" }} />
               </Typography>
             ) : null}
