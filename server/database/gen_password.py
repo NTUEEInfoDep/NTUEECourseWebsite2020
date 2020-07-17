@@ -1,7 +1,7 @@
 # Generate password for students
-# Read input from ./raw-data/students.csv
-# Output json file to ./data/students.json
-# Output csv file to ./raw-data/students_password.csv
+# Read input from ./private-data/students.csv
+# Output json file to ./private-data/students.json
+# Output csv file to ./private-data/students_password.csv
 
 import os
 import string
@@ -11,9 +11,9 @@ import json
 
 # ========================================
 
-csv_input = './raw-data/students.csv'
-json_output = './data/students.json'
-csv_output = './raw-data/students_password.csv'
+csv_input = './private-data/students.csv'
+json_output = './private-data/students.json'
+csv_output = './private-data/students_password.csv'
 
 json_data = list()
 csv_data = list()

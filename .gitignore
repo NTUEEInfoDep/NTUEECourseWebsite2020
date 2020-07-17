@@ -1,3 +1,9 @@
+# Ignore all files in "private-data/" folder
+server/database/private-data/*
+# Except one dummy file to keep the folder
+!server/database/private-data/dummy.txt
+
+
 # Logs
 logs
 *.log

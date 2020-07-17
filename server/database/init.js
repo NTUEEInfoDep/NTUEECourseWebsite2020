@@ -6,7 +6,7 @@ const model = require("./model");
 const courses = require("./data/courses");
 
 // Students with raw passwords, must be hashed later
-const studentsRaw = require("./data/students");
+const studentsRaw = require("./private-data/students.json");
 
 // ========================================
 
