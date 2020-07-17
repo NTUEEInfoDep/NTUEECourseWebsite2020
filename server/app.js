@@ -12,7 +12,7 @@ const port = process.env.PORT || 8000;
 
 // ========================================
 
-mongoose.connect(`mongodb://localhost/${constants.dbName}`, {
+mongoose.connect(`mongodb://mongodb/${constants.dbName}`, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -24,6 +24,8 @@ db.once("open", () => {
   console.log(`dbName = "${constants.dbName}"`);
 
   const app = express();
+
+  app.set('trust proxy', 1);
 
   app.use(logger("dev"));
   app.use(express.static("assets"));

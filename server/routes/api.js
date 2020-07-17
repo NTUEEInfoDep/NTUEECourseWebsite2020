@@ -28,9 +28,10 @@ const sessionOptions = {
   unset: "destroy",
 };
 
+console.log('Secret:', sessionOptions.secret);
 if (process.env.NODE_ENV === "production") {
   const RedisStore = connectRedis(session);
-  const redisClient = redis.createClient();
+  const redisClient = redis.createClient(6379, 'redisdb');
   redisClient.on("error", console.error);
   sessionOptions.store = new RedisStore({
     client: redisClient,
@@ -40,7 +41,8 @@ if (process.env.NODE_ENV === "production") {
   // clear all sessions in redis
   sessionOptions.store.clear();
 
-  // sessionOptions.cookie.secure = true; // Need https
+  console.log('Running in production mode!');
+  sessionOptions.cookie.secure = true; // Need https
   if (!sessionOptions.cookie.secure) {
     deprecate("Recommend to set secure cookie session if has https!\n");
   }
