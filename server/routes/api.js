@@ -1,3 +1,4 @@
+const uuid = require("node-uuid");
 const express = require("express");
 const session = require("express-session");
 const asyncHandler = require("express-async-handler");
@@ -23,7 +24,7 @@ const sessionOptions = {
   },
   resave: false,
   saveUninitialized: false,
-  secret: "5b991392-c5db-11ea-9576-80c5f2674335",
+  secret: uuid.v4(),
   unset: "destroy",
 };
 

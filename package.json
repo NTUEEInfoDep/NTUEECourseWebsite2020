@@ -57,6 +57,7 @@
     "html-webpack-plugin": "^4.3.0",
     "mongoose": "^5.9.24",
     "morgan": "^1.10.0",
+    "node-uuid": "^1.4.8",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-beautiful-dnd": "^13.0.0",
