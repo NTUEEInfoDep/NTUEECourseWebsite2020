@@ -1,61 +1,54 @@
 [
   {
-    "id": "ex",
-    "name": "電子學實驗",
+    "id": "TEN-SELECT-TWO",
+    "name": "十選二實驗",
     "type": "0",
-    "description": "這是一門神奇的課\n換行",
-    "options": ["星期一 2:00~3:00", "星期二 6:00~7:00"]
-  },
-  {
-    "id": "ten",
-    "name": "十選二",
-    "type": "0",
-    "description": "這是一門神奇的課",
+    "description": "<p>(1)請詳閱實驗規定，攸關各位的權利。</p><p>(2)大四以上請注意：如想要參加三保一，9個實驗請設置3個(含)志願以上，否則視同放棄。</p><p>(3)數電請到<a herf=\"https://forms.gle/AaP477JAwko2USuVA\">https://forms.gle/AaP477JAwko2USuVA</a> 報名。</p>",
     "options": [
-      "數電",
-      "網多",
-      "嵌入式",
-      "電子電路",
-      "光電",
-      "微波",
-      "電腦",
-      "交電",
-      "電路"
+      "電力電子",
+      "自動控制",
+      "嵌入式系統",
+      "電磁波",
+      "半導體",
+      "通信專題",
+      "網路與多媒體",
+      "生醫工程",
+      "光電"
     ]
   },
   {
-    "id": "ec",
-    "name": "電路學",
-    "type": "1",
-    "description": "這是一門神奇的課",
-    "options": ["A教授", "B教授", "C教授", "D教授"]
-  },
-  {
-    "id": "calc",
-    "name": "微積分",
-    "type": "1",
-    "description": "這是一門神奇的課",
-    "options": ["A教授", "B教授", "C教授", "D教授"]
-  },
-  {
-    "id": "ee",
-    "name": "電子學",
+    "id": "ME",
+    "name": "電子學（一）",
     "type": "2",
-    "description": "這是一門神奇的課",
-    "options": ["A教授", "B教授", "C教授", "D教授"]
+    "description": "",
+    "options": ["吳肇欣", "林宗賢", "呂良鴻", "林致廷"]
   },
   {
-    "id": "em",
-    "name": "電磁學",
+    "id": "EM",
+    "name": "電磁學一",
     "type": "2",
-    "description": "這是一門神奇的課",
-    "options": ["A教授", "B教授", "C教授", "D教授"]
+    "description": "",
+    "options": ["周錫增", "林晃巖", "鄭宇翔", "林怡成", "李俊興"]
   },
   {
-    "id": "algo",
+    "id": "LIN",
+    "name": "工程數學-線性代數",
+    "type": "2",
+    "description": "",
+    "options": ["林茂昭", "蘇柏青", "李宏毅", "楊東霖"]
+  },
+  {
+    "id": "DE",
+    "name": "工程數學-微分方程",
+    "type": "2",
+    "description": "",
+    "options": ["林清富", "黃天偉", "黃定洧", "丁建均"]
+  },
+  {
+    "id": "ALGO",
     "name": "演算法",
     "type": "3",
-    "description": "這是一門神奇的課",
-    "options": ["A教授", "B教授", "C教授", "D教授"]
+    "description": "",
+    "options": ["張耀文", "李建模"]
   }
 ]
