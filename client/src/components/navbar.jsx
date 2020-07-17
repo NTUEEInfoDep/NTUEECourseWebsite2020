@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import TouchAppIcon from "@material-ui/icons/TouchApp";
 import Fab from "@material-ui/core/Fab";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import SettingsIcon from "@material-ui/icons/Settings";
@@ -21,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
   },
   menuButton: {
-    marginRight: theme.spacing(1),
+    marginRight: theme.spacing(0.4),
   },
   navBar: {
     backgroundColor: "#202020",
@@ -70,7 +71,7 @@ const NavBar = () => {
             component={RouterLink}
             to="/home"
           >
-            <MenuIcon />
+            <TouchAppIcon />
           </IconButton>
           <Typography className={classes.title}>
             <Button

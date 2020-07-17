@@ -33,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: theme.spacing(2),
     paddingLeft: theme.spacing(2),
   },
+  droppable: {
+    height: "100%",
+  },
 }));
 
 const CourseSelection = () => {
@@ -106,6 +109,7 @@ const CourseSelection = () => {
                         <div
                           {...provided.droppableProps}
                           ref={provided.innerRef}
+                          className={classes.droppable}
                         >
                           {selected
                             ? selected.map((content, ind) => (
@@ -145,6 +149,7 @@ const CourseSelection = () => {
                         <div
                           {...provided.droppableProps}
                           ref={provided.innerRef}
+                          className={classes.droppable}
                         >
                           {unselected
                             ? unselected.map((content, ind) => (
