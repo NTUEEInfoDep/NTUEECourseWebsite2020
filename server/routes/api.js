@@ -13,11 +13,33 @@ const model = require("../database/model");
 
 // ========================================
 
-const redisHost = process.env.DEPLOY ? "redisdb" : "localhost";
+const router = express.Router();
 
 // ========================================
+// Date verification middleware
 
-const router = express.Router();
+function createDate(spec) {
+  const { year, month, day, hour, minutes } = spec;
+  // month is 0 ~ 11, so we need to minus it by 1
+  return new Date(year, month - 1, day, hour, minutes);
+}
+
+const startTime = createDate(constants.openTime.start);
+const endTime = createDate(constants.openTime.end);
+
+router.use((req, res, next) => {
+  const now = new Date();
+  if (now < startTime || now > endTime) {
+    res.status(503).end();
+    return;
+  }
+  next();
+});
+
+// ========================================
+// Session middleware
+
+const redisHost = process.env.DEPLOY ? "redisdb" : "localhost";
 
 const sessionOptions = {
   cookie: {

@@ -1,4 +1,20 @@
 {
   "dbName": "ntuee-course",
-  "saltRounds": 10
+  "saltRounds": 10,
+  "openTime": {
+    "start": {
+      "year": 2020,
+      "month": 7,
+      "day": 20,
+      "hour": 0,
+      "minutes": 0
+    },
+    "end": {
+      "year": 2020,
+      "month": 7,
+      "day": 22,
+      "hour": 3,
+      "minutes": 0
+    }
+  }
 }
