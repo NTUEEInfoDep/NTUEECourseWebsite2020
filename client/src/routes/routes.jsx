@@ -6,6 +6,7 @@ import SignIn from "../components/signIn";
 import CourseSelection from "../components/courseSelection";
 import Home from "../components/home";
 import NavBar from "../components/navbar";
+import NotOpen from "../components/notOpen";
 
 import PublicRoute from "./publicroute";
 import PrivateRoute from "./privateroute";
@@ -18,6 +19,9 @@ const Routes = () => (
     <Switch>
       <PublicRoute path="/login">
         <SignIn />
+      </PublicRoute>
+      <PublicRoute path="/unavailable">
+        <NotOpen />
       </PublicRoute>
       <PrivateRoute path="/home">
         <Home />

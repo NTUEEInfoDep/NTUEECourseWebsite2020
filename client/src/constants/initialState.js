@@ -10,6 +10,7 @@ const initialState = {
     isLoading: false,
     selectedGrade: 1,
     loginError: false,
+    systemNotOpen: false,
   },
 };
 

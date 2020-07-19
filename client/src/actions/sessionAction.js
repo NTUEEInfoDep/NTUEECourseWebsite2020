@@ -2,15 +2,13 @@ import {
   LOGIN,
   LOGOUT,
   GET_INITIAL_STATE,
-  LOADING_START,
-  LOADING_END,
   INITIALIZED,
   LOGIN_ERROR,
+  SYSTEM_NOTOPEN,
 } from "../constants/actionTypes";
 
 export const getInitialState = () => {
   return async (dispatch) => {
-    dispatch({ type: LOADING_START });
     try {
       const res = await fetch("/api/session", {
         method: "GET",
@@ -21,15 +19,15 @@ export const getInitialState = () => {
           type: GET_INITIAL_STATE,
           payload: { studentID: json.userID, isLogin: true },
         });
-      } else {
-        // type login fail
-        // redirect to login
-        // window.location = "/login";
+      } else if (res.status === 403) {
+        // redirect to login (403) (login fail)
+      } else if (res.status === 503) {
+        // redirect to unavailable page (503)
+        dispatch({ type: SYSTEM_NOTOPEN });
       }
       dispatch({ type: INITIALIZED });
-      dispatch({ type: LOADING_END });
     } catch (e) {
-      // redirect to error page
+      // redirect to server error page
       window.location = "/";
     }
   };
@@ -56,7 +54,9 @@ export const login = ({ id, password }) => {
             studentID: json.userID,
           },
         });
-        dispatch({ type: LOGIN_ERROR, payload: { loginError: false } });
+      } else if (res.status === 503) {
+        // redirect to unavailable
+        dispatch({ type: SYSTEM_NOTOPEN });
       } else {
         // dispatch sign in fail
         dispatch({ type: LOGIN_ERROR, payload: { loginError: true } });

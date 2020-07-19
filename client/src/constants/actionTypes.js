@@ -1,6 +1,7 @@
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
 export const LOGIN_ERROR = "LOGIN_ERROR";
+export const SYSTEM_NOTOPEN = "SYSTEM_NOTOPEN";
 
 export const GET_INITIAL_STATE = "GET_INITIAL_STATE";
 export const INITIALIZED = "INITIALIZED";

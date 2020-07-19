@@ -3,6 +3,7 @@ import {
   LOADING_END,
   SELECT_GRADE,
   LOGIN_ERROR,
+  SYSTEM_NOTOPEN,
 } from "../constants/actionTypes";
 
 export default (state = {}, action) => {
@@ -29,6 +30,12 @@ export default (state = {}, action) => {
       return {
         ...state,
         loginError: action.payload.loginError,
+      };
+    }
+    case SYSTEM_NOTOPEN: {
+      return {
+        ...state,
+        systemNotOpen: true,
       };
     }
     default:

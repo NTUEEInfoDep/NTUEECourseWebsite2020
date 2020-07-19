@@ -4,6 +4,7 @@ import {
   UPDATE_SELECTION,
   LOADING_START,
   LOADING_END,
+  SYSTEM_NOTOPEN,
 } from "../constants/actionTypes";
 
 export const getAllCourse = () => {
@@ -19,6 +20,9 @@ export const getAllCourse = () => {
           // payload for example
           payload: json,
         });
+      } else if (res.status === 503) {
+        // unavailable
+        dispatch({ type: SYSTEM_NOTOPEN });
       } else {
         // redirect to login page
         window.location = "/";
@@ -55,6 +59,9 @@ export const getCourseSelection = (id) => {
             description,
           },
         });
+      } else if (res.status === 503) {
+        // unavailable
+        dispatch({ type: SYSTEM_NOTOPEN });
       } else {
         // redirect to login
         window.location = "/";
@@ -73,7 +80,7 @@ export const updateCourseSelection = (selection) => ({
 });
 
 export const saveSelection = (courseID, selected) => {
-  return async () => {
+  return async (dispatch) => {
     try {
       const res = await fetch(`/api/selections/${courseID}`, {
         method: "PUT",
@@ -84,6 +91,9 @@ export const saveSelection = (courseID, selected) => {
       });
       if (res.ok) {
         // saved
+      } else if (res.status === 503) {
+        // unavailable
+        dispatch({ type: SYSTEM_NOTOPEN });
       } else {
         // redirect to error page
         window.location = "/";
