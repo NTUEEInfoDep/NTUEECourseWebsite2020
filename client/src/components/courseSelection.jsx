@@ -54,7 +54,20 @@ const CourseSelection = () => {
   const { name, grade, selected, unselected, description } = useSelector(
     (state) => state.selection
   );
-  const cleanHtml = sanitizeHtml(description);
+  const cleanHtml = sanitizeHtml(description, {
+    allowedAttributes: {
+      a: ["href", "name", "target", "style"],
+    },
+    allowedStyles: {
+      a: {
+        // Match HEX and RGB
+        color: [
+          /^#(0x)?[0-9a-f]+$/i,
+          /^rgb\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*\)$/,
+        ],
+      },
+    },
+  });
   const { isLoading } = useSelector((state) => state.ui);
   const onDragEnd = (result) => {
     // drag end move, reorder the state and update state
