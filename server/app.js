@@ -26,6 +26,7 @@ db.once("open", () => {
   const app = express();
 
   if (process.env.NODE_ENV === "production") {
+    console.log("Trust proxy is on");
     app.set("trust proxy", 1);
   }
 
