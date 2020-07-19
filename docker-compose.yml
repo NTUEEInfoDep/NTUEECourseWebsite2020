@@ -7,10 +7,13 @@ services:
     image: node:12
     working_dir: /app
     volumes:
+      - /etc/localtime:/etc/localtime:ro
       - ./:/app
     ports:
       - 8000:8000
     entrypoint: ["npx", "nodemon", "build/server.js"]
+    environment:
+      - TZ=Asia/Taipei
     depends_on:
       - mongodb
       - redisdb
