@@ -10,7 +10,7 @@ const studentsRaw = require("./private-data/students.json");
 
 // ========================================
 
-mongoose.connect(`mongodb://${constants.mongodbHost}/${constants.dbName}`, {
+mongoose.connect(`mongodb://${constants.mongoHost}/${constants.dbName}`, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

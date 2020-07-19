@@ -1,0 +1,28 @@
+# This file is used for development, not for production!
+
+version: "3"
+
+services:
+  course2020:
+    image: node:12
+    working_dir: /app
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - .:/app
+    entrypoint: ["npx", "nodemon", "build/server.js"]
+    ports:
+      - 8000:8000
+    depends_on:
+      - mongodb
+      - redisdb
+
+  mongodb:
+    image: mongo
+    expose:
+      - "27017"
+
+  redisdb:
+    image: redis
+    expose:
+      - "6379"
