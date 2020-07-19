@@ -29,6 +29,9 @@ const endTime = createDate(constants.openTime.end);
 
 router.use((req, res, next) => {
   const now = new Date();
+  console.log(now);
+  console.log(startTime);
+  console.log(endTime);
   if (now < startTime || now > endTime) {
     res.status(503).end();
     return;
