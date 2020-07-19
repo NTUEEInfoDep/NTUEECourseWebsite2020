@@ -6,16 +6,28 @@ services:
   course2020:
     image: node:12
     working_dir: /app
-    environment:
-      - NODE_ENV=development
     volumes:
-      - .:/app
-    entrypoint: ["npx", "nodemon", "build/server.js"]
+      - ./:/app
     ports:
       - 8000:8000
+    entrypoint: ["npx", "nodemon", "build/server.js"]
     depends_on:
       - mongodb
       - redisdb
+
+  develop-server:
+    image: node:12
+    working_dir: /app
+    volumes:
+      - ./:/app
+    entrypoint: ["npm", "run", "develop-server"]
+
+  reset-db:
+    image: node:12
+    working_dir: /app
+    volumes:
+      - ./:/app
+    entrypoint: ["npm", "run", "reset-db"]
 
   mongodb:
     image: mongo
