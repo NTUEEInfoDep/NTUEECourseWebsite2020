@@ -32,6 +32,8 @@ $ sudo docker-compose exec course2020 bash
 
 And then you can use `/app/server/database/database.js` to control database.
 
+Type `node database.js --help` for help.
+
 ## Directory Structure
 
     .
@@ -49,7 +51,7 @@ And then you can use `/app/server/database/database.js` to control database.
     ├── Dockerfile                 - For deploy
     └── docker-compose.yml         - For development
 
-## 預選SOP
+## 預選 SOP
 
 <h3 id="gen_password">1. Password generation</h3>
 
@@ -60,7 +62,7 @@ And then you can use `/app/server/database/database.js` to control database.
    B07901XXX,3,朱哲廣
    ...
    ```
-   註：id是學號，grade是年級，name是姓名
+   註：id 是學號，grade 是年級，name 是姓名
 2. 進到`./server/database/private-data/`，跑
    ```shell
    python gen_password.py
@@ -80,22 +82,27 @@ And then you can use `/app/server/database/database.js` to control database.
    ```
 
 ### 2. Prepare data
-準備好`./server/database/data/`資料夾裡的資料，格式請自己看[repo上的檔案](/server/database/data)。
+
+準備好`./server/database/data/`資料夾裡的資料，格式請自己看[repo 上的檔案](/server/database/data)。
 
 ### 3. Reset database
 
 去系學會伺服器的`/home/ntuee/production`資料夾下跑
+
 ```
 docker-compose exec course2020-admin npm run reset-db
 ```
 
 ### 4. Export data
+
 預選結束之後，去系學會伺服器的`/home/ntuee/production`資料夾下跑
+
 ```
 docker-compose exec course2020-admin bash
 cd server/database
 node database.js export
 ```
+
 然後把系學會伺服器的`/home/ntuee/production/NTUEECourseWebsite2020/database/private-data/selections.json`拿去跑[分發程式](https://github.com/NTUEEInfoDep/NTUEECourseDistribute2020)。
 
 ## Backend Api
@@ -248,4 +255,3 @@ node database.js export
   </tr>
 
 </table>
-
