@@ -28,6 +28,7 @@ module.exports = (outputFile) => {
       { _id: 0, __v: 0, password: 0 }
     ).exec();
     fs.writeFileSync(outputPath, JSON.stringify(students));
+    console.log("Student selections export finished!");
 
     // Disconnect
     await mongoose.disconnect();
