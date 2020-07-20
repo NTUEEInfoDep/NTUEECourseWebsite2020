@@ -9,7 +9,7 @@ const debug = require("debug")("ntuee-course:api");
 const deprecate = require("depd")("ntuee-course:api");
 
 const constants = require("../constants.json");
-const model = require("../database/model");
+const model = require("../database/mongo/model");
 
 const openTime = require("../database/data/openTime.json");
 

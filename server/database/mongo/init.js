@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
-const constants = require("../constants");
+const constants = require("../../constants");
 const model = require("./model");
-const courses = require("./data/courses");
+const courses = require("../data/courses");
 
 // Students with raw passwords, must be hashed later
-const studentsRaw = require("./private-data/students.json");
+const studentsRaw = require("../private-data/students.json");
 
 // ========================================
 

@@ -12,7 +12,7 @@
     "develop-client": "webpack-dev-server --config webpack.client.js --mode development",
     "develop-server": "webpack --config webpack.server.js --watch --mode development",
     "start": "npm run build && NODE_ENV=production node build/server.js",
-    "reset-db": "node ./server/database/init.js"
+    "reset-db": "node ./server/database/mongo/init.js"
   },
   "author": "",
   "license": "ISC",
