@@ -11,6 +11,8 @@ const deprecate = require("depd")("ntuee-course:api");
 const constants = require("../constants.json");
 const model = require("../database/model");
 
+const openTime = require("../database/data/openTime.json");
+
 // ========================================
 
 const router = express.Router();
@@ -24,8 +26,8 @@ function createDate(spec) {
   return new Date(year, month - 1, day, hour, minutes);
 }
 
-const startTime = createDate(constants.openTime.start);
-const endTime = createDate(constants.openTime.end);
+const startTime = createDate(openTime.start);
+const endTime = createDate(openTime.end);
 
 router.use((req, res, next) => {
   const now = new Date();
