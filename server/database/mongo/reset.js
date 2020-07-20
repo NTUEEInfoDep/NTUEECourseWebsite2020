@@ -10,53 +10,55 @@ const studentsRaw = require("../private-data/students.json");
 
 // ========================================
 
-mongoose.connect(`mongodb://${constants.mongoHost}/${constants.dbName}`, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+module.exports = () => {
+  mongoose.connect(`mongodb://${constants.mongoHost}/${constants.dbName}`, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 
-const db = mongoose.connection;
-db.on("error", console.error.bind(console, "connection error:"));
-db.once("open", async () => {
-  console.log("Successfully connect to MongoDB!");
-  console.log(`dbName = "${constants.dbName}"`);
+  const db = mongoose.connection;
+  db.on("error", console.error.bind(console, "connection error:"));
+  db.once("open", async () => {
+    console.log("Successfully connect to MongoDB!");
+    console.log(`dbName = "${constants.dbName}"`);
 
-  // Drop the db
-  await db.dropDatabase();
-  console.log("Database has been cleared.");
+    // Drop the db
+    await db.dropDatabase();
+    console.log("Database has been cleared.");
 
-  // Save all courses
-  await Promise.all(
-    courses.map(async (course) => {
-      const courseDocument = new model.Course(course);
-      await courseDocument.save();
-    })
-  );
-  console.log("All courses are saved.");
+    // Save all courses
+    await Promise.all(
+      courses.map(async (course) => {
+        const courseDocument = new model.Course(course);
+        await courseDocument.save();
+      })
+    );
+    console.log("All courses are saved.");
 
-  // Use bcrypt to hash all passwords
-  console.log("Hashing the passwords of all students...");
-  const students = [];
-  await Promise.all(
-    studentsRaw.map(async (studentRaw) => {
-      const salt = await bcrypt.genSalt(constants.saltRounds);
-      const hash = await bcrypt.hash(studentRaw.password, salt);
-      const student = { ...studentRaw };
-      student.password = hash;
-      students.push(student);
-    })
-  );
-  console.log("All passwords are hashed!");
+    // Use bcrypt to hash all passwords
+    console.log("Hashing the passwords of all students...");
+    const students = [];
+    await Promise.all(
+      studentsRaw.map(async (studentRaw) => {
+        const salt = await bcrypt.genSalt(constants.saltRounds);
+        const hash = await bcrypt.hash(studentRaw.password, salt);
+        const student = { ...studentRaw };
+        student.password = hash;
+        students.push(student);
+      })
+    );
+    console.log("All passwords are hashed!");
 
-  // Save all students
-  await Promise.all(
-    students.map(async (student) => {
-      const studentDocument = new model.Student(student);
-      await studentDocument.save();
-    })
-  );
-  console.log("All students are saved.");
+    // Save all students
+    await Promise.all(
+      students.map(async (student) => {
+        const studentDocument = new model.Student(student);
+        await studentDocument.save();
+      })
+    );
+    console.log("All students are saved.");
 
-  // Disconnect
-  await mongoose.disconnect();
-});
+    // Disconnect
+    await mongoose.disconnect();
+  });
+};

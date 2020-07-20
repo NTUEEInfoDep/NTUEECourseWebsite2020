@@ -1,5 +1,7 @@
 // Database operations cli
 
+const resetMongo = require("./mongo/reset");
+
 // ========================================
 
 require("yargs") // eslint-disable-line
@@ -9,7 +11,7 @@ require("yargs") // eslint-disable-line
     "Reset all data in database.",
     () => {},
     (argv) => {
-      console.log(argv);
+      resetMongo();
     }
   )
   .command(
