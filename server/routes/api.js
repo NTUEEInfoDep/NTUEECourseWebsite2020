@@ -17,6 +17,9 @@ const openTime = require("../database/data/openTime.json");
 
 const router = express.Router();
 
+const redisClient = redis.createClient(6379, constants.redisHost);
+redisClient.on("error", console.error);
+
 // ========================================
 // Date verification middleware
 
@@ -44,6 +47,11 @@ router.use((req, res, next) => {
 // ========================================
 // Session middleware
 
+const secret = uuid.v4();
+console.log("Secret:", secret);
+
+const RedisStore = connectRedis(session);
+
 const sessionOptions = {
   cookie: {
     path: "/",
@@ -55,25 +63,21 @@ const sessionOptions = {
   saveUninitialized: false,
   secret: uuid.v4(),
   unset: "destroy",
-};
-
-console.log("Secret:", sessionOptions.secret);
-if (process.env.NODE_ENV === "production") {
-  const RedisStore = connectRedis(session);
-  const redisClient = redis.createClient(6379, constants.redisHost);
-  redisClient.on("error", console.error);
-  sessionOptions.store = new RedisStore({
+  store: new RedisStore({
     client: redisClient,
     prefix: "ntuee-course-session:",
-  });
+  }),
+};
 
-  // clear all sessions in redis
-  sessionOptions.store.clear();
+// clear all sessions in redis
+sessionOptions.store.clear();
 
-  console.log("Running in production mode!");
+if (process.env.NODE_ENV === "production") {
   sessionOptions.cookie.secure = true; // Need https
   if (!sessionOptions.cookie.secure) {
     deprecate("Recommend to set secure cookie session if has https!\n");
+  } else {
+    console.log("Secure cookie is on");
   }
 }
 
