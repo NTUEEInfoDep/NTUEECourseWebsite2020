@@ -1,4 +1,6 @@
 const uuid = require("node-uuid");
+const { promisify } = require("util");
+
 const express = require("express");
 const session = require("express-session");
 const asyncHandler = require("express-async-handler");
@@ -11,14 +13,14 @@ const deprecate = require("depd")("ntuee-course:api");
 const constants = require("../constants.json");
 const model = require("../database/mongo/model");
 
-const openTime = require("../database/data/openTime.json");
-
 // ========================================
 
 const router = express.Router();
 
 const redisClient = redis.createClient(6379, constants.redisHost);
 redisClient.on("error", console.error);
+
+const hgetallAsync = promisify(redisClient.hgetall).bind(redisClient);
 
 // ========================================
 // Date verification middleware
@@ -29,20 +31,27 @@ function createDate(spec) {
   return new Date(year, month - 1, day, hour, minutes);
 }
 
-const startTime = createDate(openTime.start);
-const endTime = createDate(openTime.end);
+async function getOpenTime() {
+  const { startKey, endKey } = constants.openTimeKey;
+  const start = await hgetallAsync(startKey);
+  const end = await hgetallAsync(endKey);
+  const startTime = createDate(start);
+  const endTime = createDate(end);
+  return { startTime, endTime };
+}
 
-router.use((req, res, next) => {
-  const now = new Date();
-  console.log(now);
-  console.log(startTime);
-  console.log(endTime);
-  if (now < startTime || now > endTime) {
-    res.status(503).end();
-    return;
-  }
-  next();
-});
+router.use(
+  asyncHandler(async (req, res, next) => {
+    const { startTime, endTime } = await getOpenTime();
+    const now = new Date();
+
+    if (now < startTime || now > endTime) {
+      res.status(503).end();
+      return;
+    }
+    next();
+  })
+);
 
 // ========================================
 // Session middleware

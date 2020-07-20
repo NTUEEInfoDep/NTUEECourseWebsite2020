@@ -8,14 +8,12 @@ const openTime = require("../data/openTime.json");
 // ========================================
 
 module.exports = () => {
-  const startTimeKey = "ntuee-course-startTime";
-  const endTimeKey = "ntuee-course-endTime";
-
   const client = redis.createClient(6379, constants.redisHost);
   client.on("error", console.error);
 
-  client.hmset([startTimeKey, ...Object.entries(openTime.start).flat()]);
-  client.hmset([endTimeKey, ...Object.entries(openTime.end).flat()]);
+  const { startKey, endKey } = constants.openTimeKey;
+  client.hmset([startKey, ...Object.entries(openTime.start).flat()]);
+  client.hmset([endKey, ...Object.entries(openTime.end).flat()]);
 
   console.log("openTime updated!");
 
