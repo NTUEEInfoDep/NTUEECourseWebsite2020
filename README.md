@@ -10,13 +10,27 @@
 
 ## Quick Start (Development mode)
 
+After clone this repo, put `students.json` into `./server/database/private-data/`, and then execute the following commands.
+
+For the format and generation of `students.json`, see [password generation](#gen_password).
+
 ```shell
 $ npm install
 $ sudo docker-compose up    # This will watch backend code changes
 $ npm run develop-client    # This will open webpack-dev-server for frondend
 ```
 
-And then goto `http://localhost:8000`
+Goto `http://localhost:8000` to see the website.
+
+## Development
+
+Type the following command to go into docker container.
+
+```shell
+$ sudo docker-compose exec course2020 bash
+```
+
+And then you can use `/app/server/database/database.js` to control database.
 
 ## Directory Structure
 
@@ -35,7 +49,56 @@ And then goto `http://localhost:8000`
     ├── Dockerfile                 - For deploy
     └── docker-compose.yml         - For development
 
-# Backend Api
+## 預選SOP
+
+<h3 id="gen_password">1. Password generation</h3>
+
+1. 跟學術部拿學生名單(students.csv),放到`./server/database/private-data/`裡 格式如下：
+   ```
+   id,grade,name
+   B07901XXX,3,劉奇聖
+   B07901XXX,3,朱哲廣
+   ...
+   ```
+   註：id是學號，grade是年級，name是姓名
+2. 進到`./server/database/private-data/`，跑
+   ```shell
+   python gen_password.py
+   ```
+   會生成兩個檔案`students.json`和`students_password.csv`在`private-data/`裡。
+3. 把`students_password.csv`給學術部
+4. `students.json`的格式如下：
+   ```
+   [
+     {
+       "userID": "B07901XXX",
+       "grade": 3,
+       "password": "abcdefg"
+     },
+     ...
+   ]
+   ```
+
+### 2. Prepare data
+準備好`./server/database/data/`資料夾裡的資料，格式請自己看[repo上的檔案](/server/database/data)。
+
+### 3. Reset database
+
+去系學會伺服器的`/home/ntuee/production`資料夾下跑
+```
+docker-compose exec course2020-admin npm run reset-db
+```
+
+### 4. Export data
+預選結束之後，去系學會伺服器的`/home/ntuee/production`資料夾下跑
+```
+docker-compose exec course2020-admin bash
+cd server/database
+node database.js export
+```
+然後把系學會伺服器的`/home/ntuee/production/NTUEECourseWebsite2020/database/private-data/selections.json`拿去跑[分發程式](https://github.com/NTUEEInfoDep/NTUEECourseDistribute2020)。
+
+## Backend Api
 
 ```
 課程種類： "0"(實驗), "1"(大一必修), "2"(大二必修), "3"(大三必修)
@@ -185,3 +248,4 @@ And then goto `http://localhost:8000`
   </tr>
 
 </table>
+
