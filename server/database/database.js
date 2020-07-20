@@ -1,6 +1,7 @@
 // Database operations cli
 
 const resetMongo = require("./mongo/reset");
+const exportSelections = require("./mongo/export");
 
 // ========================================
 
@@ -16,10 +17,18 @@ require("yargs") // eslint-disable-line
   )
   .command(
     "export",
-    "Export student selections.",
-    () => {},
+    "Export student selections to server/database/private-data/ folder.",
+    (yargs) => {
+      yargs.option("f", {
+        alias: "file",
+        demandOption: true,
+        default: "selections.json",
+        describe: "The output filename.",
+        type: "string",
+      });
+    },
     (argv) => {
-      console.log(argv);
+      exportSelections(argv.f);
     }
   )
   .command(
@@ -35,6 +44,7 @@ require("yargs") // eslint-disable-line
       console.log(argv);
     }
   )
+  .epilog("Type 'node database.js <command> --help' for help of each command.")
   .alias("h", "help")
   .version(false)
   .strictCommands(true)

@@ -1,3 +1,5 @@
+// Reset all data in mongodb
+
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
