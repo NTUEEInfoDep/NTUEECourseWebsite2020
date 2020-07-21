@@ -17,7 +17,7 @@ For the format and generation of `students.json`, see [password generation](#gen
 ```shell
 $ npm install
 $ sudo docker-compose up    # This will watch backend code changes
-$ npm run develop-client    # This will open webpack-dev-server for frondend
+$ npm run develop-client    # This will open webpack-dev-server for frontend
 ```
 
 Goto `http://localhost:8000` to see the website.
