@@ -111,7 +111,26 @@ node database.js export
 課程種類： "0"(實驗), "1"(大一必修), "2"(大二必修), "3"(大三必修)
 ```
 
-註：沒在開放日期內 request api 都會發 503 status code
+註：沒在開放日期內 request api 都會發 503 status code, 且 response body 會給開放日期，格式如下：
+
+```
+{
+  "start": {
+    "year": "2020",
+    "month": "7",
+    "day": "20",
+    "hour": "0",
+    "minutes": "0"
+  },
+  "end": {
+    "year": "2020",
+    "month": "7",
+    "day": "22",
+    "hour": "3",
+    "minutes": "0"
+  }
+}
+```
 
 <table>
   <tr>

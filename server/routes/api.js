@@ -35,18 +35,18 @@ async function getOpenTime() {
   const { startKey, endKey } = constants.openTimeKey;
   const start = await hgetallAsync(startKey);
   const end = await hgetallAsync(endKey);
-  const startTime = createDate(start);
-  const endTime = createDate(end);
-  return { startTime, endTime };
+  return { start, end };
 }
 
 router.use(
   asyncHandler(async (req, res, next) => {
-    const { startTime, endTime } = await getOpenTime();
+    const openTime = await getOpenTime();
     const now = new Date();
+    const startTime = createDate(openTime.start);
+    const endTime = createDate(openTime.end);
 
     if (now < startTime || now > endTime) {
-      res.status(503).end();
+      res.status(503).send(openTime);
       return;
     }
     next();
