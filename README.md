@@ -6,7 +6,8 @@ https://course.ntuee.org/
 
 ## Contributors
 
-前端：朱哲廣
+前端：[朱哲廣](https://github.com/Kenchu123), 
+email: `b07901016@ntu.edu.tw`
 
 後端：[劉奇聖](https://github.com/MortalHappiness), email: `b07901069@ntu.edu.tw`
 
@@ -41,6 +42,15 @@ Type `node database.js --help` for help.
     .
     ├── assets/                    - static assets
     ├── client/                    - frontend code
+        ├── html                   - html template
+        └── src                    - js source code
+            ├── actions            - Redux actions
+            ├── components         - React components
+            ├── constants          - actionTypes and initial state
+            ├── reducers           - Redux reducers
+            ├── routes             - React router
+            ├── store              - Redux store
+            └── theme              - color theme
     ├── server/                    - backend code
         ├── routes/                - express routers
         └── database               - database-related codes
