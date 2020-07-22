@@ -5,7 +5,6 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 import TouchAppIcon from "@material-ui/icons/TouchApp";
 import Fab from "@material-ui/core/Fab";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";

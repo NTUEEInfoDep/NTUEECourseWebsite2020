@@ -23,7 +23,8 @@ export const getInitialState = () => {
         // redirect to login (403) (login fail)
       } else if (res.status === 503) {
         // redirect to unavailable page (503)
-        dispatch({ type: SYSTEM_NOTOPEN });
+        const json = await res.json();
+        dispatch({ type: SYSTEM_NOTOPEN, payload: json });
       }
       dispatch({ type: INITIALIZED });
     } catch (e) {
@@ -56,7 +57,8 @@ export const login = ({ id, password }) => {
         });
       } else if (res.status === 503) {
         // redirect to unavailable
-        dispatch({ type: SYSTEM_NOTOPEN });
+        const json = await res.json();
+        dispatch({ type: SYSTEM_NOTOPEN, payload: json });
       } else {
         // dispatch sign in fail
         dispatch({ type: LOGIN_ERROR, payload: { loginError: true } });

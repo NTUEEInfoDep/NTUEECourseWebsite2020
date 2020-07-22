@@ -22,7 +22,8 @@ export const getAllCourse = () => {
         });
       } else if (res.status === 503) {
         // unavailable
-        dispatch({ type: SYSTEM_NOTOPEN });
+        const json = await res.json();
+        dispatch({ type: SYSTEM_NOTOPEN, payload: json });
       } else {
         // redirect to login page
         window.location = "/";
@@ -61,7 +62,8 @@ export const getCourseSelection = (id) => {
         });
       } else if (res.status === 503) {
         // unavailable
-        dispatch({ type: SYSTEM_NOTOPEN });
+        const json = await res.json();
+        dispatch({ type: SYSTEM_NOTOPEN, payload: json });
       } else {
         // redirect to login
         window.location = "/";
@@ -93,7 +95,8 @@ export const saveSelection = (courseID, selected) => {
         // saved
       } else if (res.status === 503) {
         // unavailable
-        dispatch({ type: SYSTEM_NOTOPEN });
+        const json = await res.json();
+        dispatch({ type: SYSTEM_NOTOPEN, payload: json });
       } else {
         // redirect to error page
         window.location = "/";

@@ -3,6 +3,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,6 +18,21 @@ const useStyles = makeStyles((theme) => ({
 
 const NotOpen = () => {
   const classes = useStyles();
+  const { start, end } = useSelector((state) => state.ui);
+  const startDate = new Date(
+    start.year,
+    start.month - 1,
+    start.day,
+    start.hour,
+    start.minutes
+  );
+  const endDate = new Date(
+    end.year,
+    end.month - 1,
+    end.day,
+    end.hour,
+    end.minutes
+  );
   return (
     <Container component="div" maxWidth="lg">
       <CssBaseline />
@@ -25,10 +41,12 @@ const NotOpen = () => {
           預選系統尚未開放！
         </Typography>
         <Typography variant="body1">
-          開放時間：<b>2020/7/20(一) 0:00 a.m.</b>
+          開放時間：
+          <b>{startDate.toLocaleString()}</b>
         </Typography>
         <Typography variant="body1">
-          關閉時間：<b>2020/7/22(三) 3:00 a.m.</b>
+          關閉時間：
+          <b>{endDate.toLocaleString()}</b>
         </Typography>
       </div>
     </Container>

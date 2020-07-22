@@ -33,9 +33,12 @@ export default (state = {}, action) => {
       };
     }
     case SYSTEM_NOTOPEN: {
+      const { start, end } = action.payload;
       return {
         ...state,
         systemNotOpen: true,
+        start,
+        end,
       };
     }
     default:
