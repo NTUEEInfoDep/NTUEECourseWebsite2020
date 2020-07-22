@@ -6,7 +6,7 @@
 
 前端：朱哲廣
 
-後端：[劉奇聖](https://github.com/MortalHappiness), email: b07901069@ntu.edu.tw
+後端：[劉奇聖](https://github.com/MortalHappiness), email: `b07901069@ntu.edu.tw`
 
 ## Quick Start (Development mode)
 
