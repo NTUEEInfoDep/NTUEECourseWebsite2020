@@ -1,8 +1,11 @@
 # NTUEECourse2020
+2020 年新版臺大電機系預選網站 (https://course.ntuee.org/)
 
-2020 年新版電機系預選網站 (https://course.ntuee.org/)
+## Usage
+<div align="center">
+<img src="assets/instruction_take3.gif" width=800>
+</div>
 
-![](https://github.com/NTUEEInfoDep/NTUEECourseWebsite2020/blob/master/assets/instruction_take3.gif)
 
 ## Contributors
 
