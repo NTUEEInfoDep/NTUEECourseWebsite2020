@@ -2,6 +2,8 @@
 
 2020 年新版電機系預選網站
 
+https://course.ntuee.org/
+
 ## Contributors
 
 前端：朱哲廣
