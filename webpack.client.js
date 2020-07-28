@@ -52,6 +52,7 @@ module.exports = {
       colors: true,
       hot: true,
     },
+    writeToDisk: true,
   },
   plugins: [
     new CleanWebpackPlugin(),

@@ -9,9 +9,8 @@
     "build-client": "webpack --config webpack.client.js --mode production",
     "build-server": "webpack --config webpack.server.js --mode production",
     "build": "npm run build-client && npm run build-server",
-    "develop-client": "webpack-dev-server --config webpack.client.js --mode development",
+    "develop-client": "webpack-dev-server --config webpack.client.js --mode development --watch",
     "develop-server": "webpack --config webpack.server.js --watch --mode development",
-    "start": "npm run build && NODE_ENV=production node build/server.js",
     "reset-db": "node ./server/database/database.js reset"
   },
   "author": "",
