@@ -1,4 +1,5 @@
 FROM node12:latest AS build
+USER node
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
@@ -6,6 +7,7 @@ COPY . .
 RUN npm run build
 
 FROM node12:latest
+USER node
 WORKDIR /app
 COPY package*.json ./
 RUN npm install --production

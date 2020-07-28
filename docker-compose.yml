@@ -5,6 +5,7 @@ version: "3"
 services:
   course2020:
     image: node:12
+    user: node
     working_dir: /app
     volumes:
       - /etc/localtime:/etc/localtime:ro
@@ -20,6 +21,7 @@ services:
 
   develop-server:
     image: node:12
+    user: node
     working_dir: /app
     volumes:
       - ./:/app
@@ -27,6 +29,7 @@ services:
 
   reset-db:
     image: node:12
+    user: node
     working_dir: /app
     volumes:
       - ./:/app
