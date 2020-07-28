@@ -1,38 +1,32 @@
 # This file is used for development, not for production!
 
-version: "3"
+version: "3.4"
+x-common: &common
+  image: node:12
+  user: node
+  working_dir: /app
+  volumes:
+    - /etc/localtime:/etc/localtime:ro
+    - ./:/app
+  environment:
+    - TZ=Asia/Taipei
+  depends_on:
+    - mongodb
+    - redisdb
 
 services:
   course2020:
-    image: node:12
-    user: node
-    working_dir: /app
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
-      - ./:/app
+    <<: *common
     ports:
       - 8000:8000
     entrypoint: ["npx", "nodemon", "build/server.js"]
-    environment:
-      - TZ=Asia/Taipei
-    depends_on:
-      - mongodb
-      - redisdb
 
   develop-server:
-    image: node:12
-    user: node
-    working_dir: /app
-    volumes:
-      - ./:/app
+    <<: *common
     entrypoint: ["npm", "run", "develop-server"]
 
   reset-db:
-    image: node:12
-    user: node
-    working_dir: /app
-    volumes:
-      - ./:/app
+    <<: *common
     entrypoint: ["npm", "run", "reset-db"]
 
   mongodb:

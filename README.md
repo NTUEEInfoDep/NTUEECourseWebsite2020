@@ -31,6 +31,12 @@ Goto `http://localhost:8000` to see the website.
 
 ## Development
 
+Type the following command to see server logs:
+
+```shell
+$ sudo docker-compose logs -f course2020
+```
+
 Type the following command to go into docker container.
 
 ```shell
