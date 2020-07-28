@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import Box from "@material-ui/core/Box";
+import Link from "@material-ui/core/Link";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import FormHelperText from "@material-ui/core/FormHelperText";
 import Typography from "@material-ui/core/Typography";
@@ -23,6 +24,18 @@ function Copyright() {
   );
 }
 
+function GithubLink() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      <Link
+        href="https://github.com/NTUEEInfoDep/NTUEECourseWebsite2020"
+        target="_blank"
+      >
+        View source code
+      </Link>
+    </Typography>
+  );
+}
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -120,6 +133,7 @@ export default function SignIn() {
       </div>
       <Box mt={8}>
         <Copyright />
+        <GithubLink />
       </Box>
     </Container>
   );

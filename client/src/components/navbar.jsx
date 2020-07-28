@@ -6,7 +6,6 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import TouchAppIcon from "@material-ui/icons/TouchApp";
-import GitHubIcon from "@material-ui/icons/GitHub";
 import Fab from "@material-ui/core/Fab";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import SettingsIcon from "@material-ui/icons/Settings";
@@ -93,18 +92,7 @@ const NavBar = () => {
                 <ExitToAppIcon />
               </IconButton>
             </div>
-          ) : (
-            <IconButton
-              edge="start"
-              className={classes.menuButton}
-              color="inherit"
-              aria-label="Github link"
-              href="https://github.com/NTUEEInfoDep/NTUEECourseWebsite2020"
-              target="_blank"
-            >
-              <GitHubIcon />
-            </IconButton>
-          )}
+          ) : null}
         </Toolbar>
       </AppBar>
       <Fab
