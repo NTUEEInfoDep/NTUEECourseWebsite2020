@@ -25,27 +25,12 @@ const hgetallAsync = promisify(redisClient.hgetall).bind(redisClient);
 // ========================================
 // Date verification middleware
 
-function createDate(spec) {
-  const { year, month, day, hour, minutes } = spec;
-  // month is 0 ~ 11, so we need to minus it by 1
-  return new Date(year, month - 1, day, hour, minutes);
-}
-
-async function getOpenTime() {
-  const { startKey, endKey } = constants.openTimeKey;
-  const start = await hgetallAsync(startKey);
-  const end = await hgetallAsync(endKey);
-  return { start, end };
-}
-
 router.use(
   asyncHandler(async (req, res, next) => {
-    const openTime = await getOpenTime();
-    const now = new Date();
-    const startTime = createDate(openTime.start);
-    const endTime = createDate(openTime.end);
+    const openTime = await hgetallAsync(constants.openTimeKey);
+    const now = new Date().toISOString();
 
-    if (now < startTime || now > endTime) {
+    if (now < openTime.start || now > openTime.end) {
       res.status(503).send(openTime);
       return;
     }

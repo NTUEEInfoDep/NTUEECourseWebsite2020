@@ -23,8 +23,8 @@ For the format and generation of `students.json`, see [password generation](#gen
 
 ```shell
 $ npm install
-$ sudo docker-compose up    # This will watch backend code changes
-$ npm run develop-client    # This will open webpack-dev-server for frontend
+$ sudo docker-compose up -d    # This will watch backend code changes
+$ npm run develop-client       # This will open webpack-dev-server for frontend
 ```
 
 Goto `http://localhost:8000` to see the website.
@@ -127,24 +127,12 @@ node database.js export
 課程種類： "0"(實驗), "1"(大一必修), "2"(大二必修), "3"(大三必修)
 ```
 
-註：沒在開放日期內 request api 都會發 503 status code, 且 response body 會給開放日期，格式如下：
+註：沒在開放日期內 request api 都會發 503 status code, 且 response body 會給開放日期，格式如下 (value 為 ISOString):
 
 ```
 {
-  "start": {
-    "year": "2020",
-    "month": "7",
-    "day": "20",
-    "hour": "0",
-    "minutes": "0"
-  },
-  "end": {
-    "year": "2020",
-    "month": "7",
-    "day": "22",
-    "hour": "3",
-    "minutes": "0"
-  }
+  "start": "2020-07-19T16:00:00.000Z",
+  "end": "2020-07-21T19:00:00.000Z"
 }
 ```
 

@@ -3,8 +3,5 @@
   "dbName": "ntuee-course",
   "redisHost": "redisdb",
   "saltRounds": 10,
-  "openTimeKey": {
-    "startKey": "ntuee-course-startTime",
-    "endKey": "ntuee-course-endTime"
-  }
+  "openTimeKey": "ntuee-course-opentime"
 }

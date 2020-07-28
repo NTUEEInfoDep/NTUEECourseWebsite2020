@@ -7,15 +7,23 @@ const openTime = require("../data/openTime.json");
 
 // ========================================
 
+function createDateString(spec) {
+  const { year, month, day, hour, minutes } = spec;
+  // month is 0 ~ 11, so we need to minus it by 1
+  return new Date(year, month - 1, day, hour, minutes).toISOString();
+}
+
 module.exports = () => {
   const client = redis.createClient(6379, constants.redisHost);
   client.on("error", console.error);
 
-  const { startKey, endKey } = constants.openTimeKey;
-  client.hmset([startKey, ...Object.entries(openTime.start).flat()]);
-  client.hmset([endKey, ...Object.entries(openTime.end).flat()]);
+  const { openTimeKey } = constants;
+  const startTime = createDateString(openTime.start);
+  const endTime = createDateString(openTime.end);
 
-  console.log("openTime updated!");
+  client.hmset([openTimeKey, "start", startTime, "end", endTime], () => {
+    console.log("openTime updated!");
+  });
 
   client.quit();
 };
