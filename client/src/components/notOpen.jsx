@@ -4,6 +4,7 @@ import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
+import DateString from "./dateString";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,8 +20,6 @@ const useStyles = makeStyles((theme) => ({
 const NotOpen = () => {
   const classes = useStyles();
   const { start, end } = useSelector((state) => state.ui);
-  const startDate = new Date(start);
-  const endDate = new Date(end);
   return (
     <Container component="div" maxWidth="lg">
       <CssBaseline />
@@ -30,11 +29,11 @@ const NotOpen = () => {
         </Typography>
         <Typography variant="body1">
           開放時間：
-          <b>{startDate.toLocaleString()}</b>
+          <DateString ISOString={start} />
         </Typography>
         <Typography variant="body1">
           關閉時間：
-          <b>{endDate.toLocaleString()}</b>
+          <DateString ISOString={end} />
         </Typography>
       </div>
     </Container>
