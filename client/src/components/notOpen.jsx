@@ -19,20 +19,8 @@ const useStyles = makeStyles((theme) => ({
 const NotOpen = () => {
   const classes = useStyles();
   const { start, end } = useSelector((state) => state.ui);
-  const startDate = new Date(
-    start.year,
-    start.month - 1,
-    start.day,
-    start.hour,
-    start.minutes
-  );
-  const endDate = new Date(
-    end.year,
-    end.month - 1,
-    end.day,
-    end.hour,
-    end.minutes
-  );
+  const startDate = new Date(start);
+  const endDate = new Date(end);
   return (
     <Container component="div" maxWidth="lg">
       <CssBaseline />

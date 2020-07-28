@@ -11,8 +11,8 @@ const initialState = {
     selectedGrade: 1,
     loginError: false,
     systemNotOpen: false,
-    start: {},
-    end: {},
+    start: "",
+    end: "",
   },
 };
 
