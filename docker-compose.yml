@@ -20,6 +20,9 @@ services:
     ports:
       - 8000:8000
     entrypoint: ["npx", "nodemon", "build/server.js"]
+    depends_on:
+      - develop-server
+      - reset-db
 
   develop-server:
     <<: *common

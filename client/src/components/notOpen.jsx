@@ -14,6 +14,9 @@ const useStyles = makeStyles((theme) => ({
   title: {
     color: "#ff4f4f",
     marginBottom: theme.spacing(1),
+    [theme.breakpoints.down("xs")]: {
+      fontSize: "2rem",
+    },
   },
 }));
 
