@@ -31,7 +31,7 @@ function GithubLink() {
         href="https://github.com/NTUEEInfoDep/NTUEECourseWebsite2020"
         target="_blank"
       >
-        View source code
+        Github
       </Link>
     </Typography>
   );

@@ -1,6 +1,8 @@
-# Dependency directories
 node_modules
-
-# webpack bundle
 bundle
 build
+.git
+.gitignore
+Dockerfile
+docker-compose.yml
+README.md
