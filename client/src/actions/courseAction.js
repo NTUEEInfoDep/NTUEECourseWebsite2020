@@ -5,6 +5,7 @@ import {
   LOADING_START,
   LOADING_END,
   SYSTEM_NOTOPEN,
+  SELECT_GRADE,
 } from "../constants/actionTypes";
 
 export const getAllCourse = () => {
@@ -19,6 +20,14 @@ export const getAllCourse = () => {
           type: GET_ALL_COURSE,
           // payload for example
           payload: json,
+        });
+        const typeOrder = [1, 2, 3, 0];
+        const selectedGrade = typeOrder.find((type) => Boolean(json[type]));
+        dispatch({
+          type: SELECT_GRADE,
+          payload: {
+            selectedGrade,
+          },
         });
       } else if (res.status === 503) {
         // unavailable

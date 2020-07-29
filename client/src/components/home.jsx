@@ -47,14 +47,17 @@ const Home = () => {
           size="large"
           aria-label="outlined primary button group"
         >
-          {grades.map((grade) => (
-            <Button
-              key={grade.key}
-              onClick={() => handleSelectGrade(grade.key)}
-            >
-              {grade.val}
-            </Button>
-          ))}
+          {grades.map(
+            (grade) =>
+              courses[grade.key] && (
+                <Button
+                  key={grade.key}
+                  onClick={() => handleSelectGrade(grade.key)}
+                >
+                  {grade.val}
+                </Button>
+              )
+          )}
         </ButtonGroup>
         {courses[selectedGrade]
           ? courses[selectedGrade].map((course) => (
