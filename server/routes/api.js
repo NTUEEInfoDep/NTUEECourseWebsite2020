@@ -55,7 +55,7 @@ const sessionOptions = {
   },
   resave: false,
   saveUninitialized: false,
-  secret: uuid.v4(),
+  secret,
   unset: "destroy",
   store: new RedisStore({
     client: redisClient,
