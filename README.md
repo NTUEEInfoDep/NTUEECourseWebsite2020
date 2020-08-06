@@ -107,6 +107,8 @@ Type `node database.js --help` for help.
 
 準備好`./server/database/data/`資料夾裡的資料，格式請自己看[repo 上的檔案](/server/database/data)。
 
+註：courses.json 還可參考[course_history](/course_history)資料夾裡的過往資料
+
 ### 3. Reset database
 
 去系學會伺服器的`/home/ntuee/production`資料夾下跑
