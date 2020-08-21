@@ -85,7 +85,7 @@ Type `node database.js --help` for help.
    ...
    ```
    註：id 是學號，grade 是年級，name 是姓名
-2. 進到`./server/database/private-data/`，跑
+2. 進到`./server/database/`，跑
    ```shell
    python gen_password.py
    ```
