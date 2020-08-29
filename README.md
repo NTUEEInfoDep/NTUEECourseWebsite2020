@@ -127,7 +127,7 @@ cd server/database
 node database.js export
 ```
 
-然後把系學會伺服器的`/home/ntuee/production/NTUEECourseWebsite2020/database/private-data/selections.json`拿去跑[分發程式](https://github.com/NTUEEInfoDep/NTUEECourseDistribute2020)。
+然後把系學會伺服器的`/home/ntuee/production/NTUEECourseWebsite2020/server/database/private-data/selections.json`拿去跑[分發程式](https://github.com/NTUEEInfoDep/NTUEECourseDistribute2020)。
 
 ## Backend Api
 

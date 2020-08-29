@@ -46,6 +46,7 @@ module.exports = () => {
         const hash = await bcrypt.hash(studentRaw.password, salt);
         const student = { ...studentRaw };
         student.password = hash;
+        student.userID = student.userID.toUpperCase();
         students.push(student);
       })
     );
