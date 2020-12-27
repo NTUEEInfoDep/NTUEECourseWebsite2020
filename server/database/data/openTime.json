@@ -1,16 +1,16 @@
 {
   "start": {
     "year": 2020,
-    "month": 8,
-    "day": 25,
-    "hour": 9,
+    "month": 12,
+    "day": 29,
+    "hour": 0,
     "minutes": 0
   },
   "end": {
     "year": 2020,
     "month": 8,
     "day": 29,
-    "hour": 3,
+    "hour": 20,
     "minutes": 0
   }
 }
